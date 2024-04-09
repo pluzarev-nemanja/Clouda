@@ -1,8 +1,14 @@
 package com.example.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class FeelsLike(
+    @SerializedName("day")
     val day: Double,
-    val eve: Double,
+    @SerializedName("eve")
+    val evening: Double,
+    @SerializedName("morn")
     val morn: Double,
+    @SerializedName("night")
     val night: Double
 )

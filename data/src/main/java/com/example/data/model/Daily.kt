@@ -1,24 +1,46 @@
 package com.example.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Daily(
+    @SerializedName("clouds")
     val clouds: Int,
-    val dew_point: Double,
-    val dt: Int,
-    val feels_like: FeelsLike,
+    @SerializedName("dew_point")
+    val dewPoint: Double,
+    @SerializedName("dt")
+    val time: Int,
+    @SerializedName("feels_like")
+    val feelsLike: FeelsLike,
+    @SerializedName("humidity")
     val humidity: Int,
-    val moon_phase: Double,
+    @SerializedName("moon_phase")
+    val moonPhase: Double,
+    @SerializedName("moonrise")
     val moonrise: Int,
-    val moonset: Int,
-    val pop: Double,
+    @SerializedName("moonset")
+    val moonSet: Int,
+    @SerializedName("pop")
+    val precipitation: Double,
+    @SerializedName("pressure")
     val pressure: Int,
+    @SerializedName("rain")
     val rain: Double,
+    @SerializedName("summary")
     val summary: String,
+    @SerializedName("sunrise")
     val sunrise: Int,
+    @SerializedName("sunset")
     val sunset: Int,
+    @SerializedName("temp")
     val temp: Temp,
-    val uvi: Double,
-    val weather: List<Weather>,
-    val wind_deg: Int,
-    val wind_gust: Double,
-    val wind_speed: Double
+    @SerializedName("uvi")
+    val uvLights: Double,
+    @SerializedName("weather")
+    val weathersList: List<Weather>,
+    @SerializedName("wind_deg")
+    val windDegrees: Int,
+    @SerializedName("wind_gust")
+    val windGust: Double,
+    @SerializedName("wind_speed")
+    val windSpeed: Double
 )
