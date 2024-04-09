@@ -67,14 +67,4 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
-
-    implementation (libs.koin.androidx.compose)
-
-    implementation (libs.androidx.navigation.compose)
-
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.coil.compose)
-
 }
