@@ -7,4 +7,5 @@ data class DailyWeather(
     val feelsLike : Double,
     val icon: String,
     val weatherDescription : String
+
 )
