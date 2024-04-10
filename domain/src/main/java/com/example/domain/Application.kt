@@ -1,7 +1,9 @@
-package com.example.data
+package com.example.domain
 
 import android.app.Application
-import com.example.data.di.remoteModule
+import com.example.domain.di.mapperModule
+import com.example.domain.di.repositoryModule
+import com.example.domain.di.useCaseModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -11,7 +13,7 @@ class Application: Application() {
         super.onCreate()
         startKoin {
             androidContext(this@Application)
-            modules(remoteModule)
+            modules(useCaseModule, repositoryModule, mapperModule)
         }
     }
 }
