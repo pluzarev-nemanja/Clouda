@@ -4,6 +4,7 @@ data class DailyWeather(
     val location: String,
     val dateAndTime: Int,
     val currentTemp: Double,
-    val feelsLike : FeelsLike,
-    val icon: String
+    val feelsLike : Double,
+    val icon: String,
+    val weatherDescription : String
 )
