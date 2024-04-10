@@ -27,4 +27,5 @@ interface RemoteRepository {
         endingDay: Int = 0,
         apiKey: String
     ): WeeklyAirPollutionsResponse
+
 }

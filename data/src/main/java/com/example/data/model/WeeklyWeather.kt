@@ -7,4 +7,5 @@ data class WeeklyWeather(
     val sunrise: Int,
     val windSpeed : Double,
     val icon : String
+
 )
