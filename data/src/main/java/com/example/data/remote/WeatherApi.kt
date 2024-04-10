@@ -13,6 +13,7 @@ interface WeatherApi {
     suspend fun getCurrentWeathersData(
         @Query("lat") latitude: Double = 0.0,
         @Query("lon") longitude: Double = 0.0,
+        @Query("units") units : String = "metric",
         @Query("appid") apiKey: String
     ): CurrentWeatherResponse
 
@@ -20,6 +21,7 @@ interface WeatherApi {
     suspend fun getWeeklyWeatherData(
         @Query("lat") latitude: Double = 0.0,
         @Query("lon") longitude: Double = 0.0,
+        @Query("units") units : String = "metric",
         @Query("appid") apiKey: String
     ): WeeklyWeatherResponse
 
