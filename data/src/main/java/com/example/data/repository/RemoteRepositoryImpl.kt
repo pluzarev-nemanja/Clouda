@@ -1,8 +1,8 @@
 package com.example.data.repository
 
-import com.example.data.model.CurrentWeatherResponse
-import com.example.data.model.WeeklyAirPollutionsResponse
-import com.example.data.model.WeeklyWeatherResponse
+import com.example.data.model.reponses.CurrentWeatherResponse
+import com.example.data.model.reponses.WeeklyAirPollutionsResponse
+import com.example.data.model.reponses.WeeklyWeatherResponse
 import com.example.data.remote.WeatherApi
 import com.example.domain.repository.RemoteRepository
 

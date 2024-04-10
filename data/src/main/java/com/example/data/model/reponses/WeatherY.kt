@@ -1,9 +1,13 @@
-package com.example.data.model
+package com.example.data.model.reponses
+
+import com.google.gson.annotations.SerializedName
 
 data class WeatherY(
     val clouds: CloudsX,
-    val dt: Int,
-    val dt_txt: String,
+    @SerializedName("dt")
+    val time: Int,
+    @SerializedName("dt_txt")
+    val timeTxt: String,
     val main: MainXX,
     val pop: Double,
     val rain: RainX,

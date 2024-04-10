@@ -1,8 +1,8 @@
 package com.example.domain.repository
 
-import com.example.data.model.CurrentWeatherResponse
-import com.example.data.model.WeeklyAirPollutionsResponse
-import com.example.data.model.WeeklyWeatherResponse
+import com.example.data.model.reponses.CurrentWeatherResponse
+import com.example.data.model.reponses.WeeklyAirPollutionsResponse
+import com.example.data.model.reponses.WeeklyWeatherResponse
 
 interface RemoteRepository {
 

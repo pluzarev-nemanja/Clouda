@@ -1,13 +1,12 @@
 package com.example.data.remote
 
-import com.example.data.model.CurrentWeatherResponse
-import com.example.data.model.WeeklyAirPollutionsResponse
-import com.example.data.model.WeeklyWeatherResponse
+import com.example.data.model.reponses.CurrentWeatherResponse
+import com.example.data.model.reponses.WeeklyAirPollutionsResponse
+import com.example.data.model.reponses.WeeklyWeatherResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface WeatherApi {
-
 
 
     @GET("weather?")
@@ -32,7 +31,6 @@ interface WeatherApi {
         @Query("end") endingDay: Int = 0,
         @Query("appid") apiKey: String
     ): WeeklyAirPollutionsResponse
-
 
 
 }
