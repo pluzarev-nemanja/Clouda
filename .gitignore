@@ -37,7 +37,6 @@ output.json
 *.iml
 .idea/
 misc.xml
-deploymentTargetDropDown.xml
 render.experimental.xml
 # Generated files
 bin/
