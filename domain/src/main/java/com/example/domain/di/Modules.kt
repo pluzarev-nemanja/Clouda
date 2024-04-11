@@ -1,3 +1,5 @@
 package com.example.domain.di
 
-val modules = mapperModule.plus(repositoryModule).plus(useCaseModule)
+import com.example.data.di.remoteModule
+
+val modules = mapperModule.plus(repositoryModule).plus(useCaseModule).plus(remoteModule)
