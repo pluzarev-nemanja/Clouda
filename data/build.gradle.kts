@@ -68,4 +68,10 @@ dependencies {
     implementation (libs.converter.gson)
 
     implementation (libs.koin.androidx.compose)
+
+    implementation(libs.logging.interceptor)
+
+    implementation (libs.okhttp)
+
+
 }

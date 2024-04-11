@@ -3,6 +3,7 @@ package com.example.weatherapp
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import com.example.domain.di.modules
 
 class Application: Application() {
 
@@ -11,7 +12,7 @@ class Application: Application() {
         super.onCreate()
         startKoin {
             androidContext(this@Application)
-            modules(com.example.domain.di.modules)
+            modules(modules)
         }
     }
 }
