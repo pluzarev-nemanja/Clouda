@@ -5,7 +5,6 @@ import com.example.data.model.WeeklyAirPollutionsResponse
 import com.example.data.model.WeeklyWeatherResponse
 import com.example.data.remote.WeatherApi
 import com.example.data.repository.RemoteRepository
-import com.example.domain.mapper.CurrentWeatherResponseToDailyWeatherMapper
 
 class RemoteRepositoryImpl(
     private val api: WeatherApi
@@ -14,17 +13,21 @@ class RemoteRepositoryImpl(
         latitude: Double,
         longitude: Double,
         apiKey: String
-    ): CurrentWeatherResponse {
-        return api.getCurrentWeathersData(latitude, longitude, apiKey)
-    }
+    ): CurrentWeatherResponse = api.getCurrentWeathersData(
+        latitude = latitude,
+        longitude = longitude,
+        apiKey = apiKey
+    )
 
     override suspend fun getWeeklyWeatherData(
         latitude: Double,
         longitude: Double,
         apiKey: String
-    ): WeeklyWeatherResponse {
-        return api.getWeeklyWeatherData(latitude, longitude, apiKey)
-    }
+    ): WeeklyWeatherResponse = api.getWeeklyWeatherData(
+        latitude = latitude,
+        longitude = longitude,
+        apiKey = apiKey
+    )
 
     override suspend fun getWeeklyAirPollutionData(
         latitude: Double,
@@ -32,9 +35,13 @@ class RemoteRepositoryImpl(
         startingDay: Int,
         endingDay: Int,
         apiKey: String
-    ): WeeklyAirPollutionsResponse {
-        return api.getWeeklyAirPollutionData(latitude, longitude, startingDay, endingDay, apiKey)
-    }
+    ): WeeklyAirPollutionsResponse = api.getWeeklyAirPollutionData(
+        latitude = latitude,
+        longitude = longitude,
+        startingDay = startingDay,
+        endingDay = endingDay,
+        apiKey = apiKey
+    )
 
 
 }

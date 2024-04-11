@@ -13,16 +13,16 @@ interface WeatherApi {
     suspend fun getCurrentWeathersData(
         @Query("lat") latitude: Double = 0.0,
         @Query("lon") longitude: Double = 0.0,
+        @Query("appid") apiKey: String,
         @Query("units") units : String = "metric",
-        @Query("appid") apiKey: String
     ): CurrentWeatherResponse
 
     @GET("forecast?")
     suspend fun getWeeklyWeatherData(
         @Query("lat") latitude: Double = 0.0,
         @Query("lon") longitude: Double = 0.0,
+        @Query("appid") apiKey: String,
         @Query("units") units : String = "metric",
-        @Query("appid") apiKey: String
     ): WeeklyWeatherResponse
 
     @GET("air_pollution/history?")
@@ -31,7 +31,7 @@ interface WeatherApi {
         @Query("lon") longitude: Double = 0.0,
         @Query("start") startingDay: Int = 0,
         @Query("end") endingDay: Int = 0,
-        @Query("appid") apiKey: String
+        @Query("appid") apiKey: String,
     ): WeeklyAirPollutionsResponse
 
 
