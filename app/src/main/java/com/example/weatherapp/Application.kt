@@ -1,18 +1,20 @@
 package com.example.weatherapp
 
 import android.app.Application
+import com.example.weatherapp.di.allModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import com.example.domain.di.modules
+import timber.log.Timber
 
-class Application: Application() {
+class Application : Application() {
 
 
     override fun onCreate() {
         super.onCreate()
         startKoin {
             androidContext(this@Application)
-            modules(modules)
+            modules(allModules)
         }
+        Timber.plant(Timber.DebugTree())
     }
 }
