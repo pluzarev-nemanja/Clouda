@@ -8,6 +8,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
+import com.example.weatherapp.common.navigation.graph.NavigationGraph
 import com.example.weatherapp.common.ui.theme.WeatherAppTheme
 import com.example.weatherapp.dailyWeather.screen.home.HomeScreen
 import com.example.weatherapp.dailyWeather.viewModel.HomeViewModel
@@ -25,9 +27,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val uiState = homeViewModel.dailyWeatherUIState.collectAsState().value
+                    val dailyWeatherUIState = homeViewModel.dailyWeatherUIState.collectAsState().value
 
-                    HomeScreen(uiState)
+                    MainScreen(
+                        navController = rememberNavController(),
+                        dailyWeatherUIState = dailyWeatherUIState
+                    )
 
                 }
             }
