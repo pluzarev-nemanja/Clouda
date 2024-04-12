@@ -25,7 +25,8 @@ fun NavigationGraph(
         composable(BottomNavItem.Home.route) {
             HomeScreen(
                 dailyWeatherUIState = dailyWeatherUIState,
-                paddingValues = paddingValues
+                paddingValues = paddingValues,
+                navController = navController
             )
         }
 

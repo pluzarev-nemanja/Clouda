@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.example.weatherapp.common.navigation.graph.NavigationGraph
 import com.example.weatherapp.common.ui.theme.WeatherAppTheme
@@ -27,7 +28,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val dailyWeatherUIState = homeViewModel.dailyWeatherUIState.collectAsState().value
+                    val dailyWeatherUIState = homeViewModel.dailyWeatherUIState.collectAsStateWithLifecycle().value
 
                     MainScreen(
                         navController = rememberNavController(),
