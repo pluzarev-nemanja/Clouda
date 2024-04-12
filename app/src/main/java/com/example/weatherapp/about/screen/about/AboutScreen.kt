@@ -1,4 +1,4 @@
-package com.example.weatherapp.weeklyWeather.screen.weekly
+package com.example.weatherapp.about.screen.about
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,11 +9,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun WeeklyWeatherScreen(
+fun AboutScreen(
     paddingValues: PaddingValues
 ) {
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center){
-        Text(text = "Weekly Screen")
+        Text(text = "About Screen")
     }
 }
