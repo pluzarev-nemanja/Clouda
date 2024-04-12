@@ -2,6 +2,7 @@ package com.example.domain.mapper
 
 import com.example.data.model.CurrentWeatherResponse
 import com.example.domain.model.DailyWeather
+import com.example.domain.util.IconExtractor.extractIcon
 
 class CurrentWeatherResponseToDailyWeatherMapper : Mapper<CurrentWeatherResponse, DailyWeather> {
     override fun mappingObjects(input: CurrentWeatherResponse): DailyWeather =
@@ -10,7 +11,9 @@ class CurrentWeatherResponseToDailyWeatherMapper : Mapper<CurrentWeatherResponse
             dateAndTime = input.time,
             currentTemp = input.main.temp,
             feelsLike = input.main.feelsLike,
-            icon = input.weather[0].icon,
-            weatherDescription = input.weather[0].icon
+            icon = extractIcon(input.weather.first().icon),
+            weatherDescription = input.weather.first().description
         )
+
+
 }
