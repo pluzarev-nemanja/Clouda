@@ -1,11 +1,7 @@
 package com.example.weatherapp.dailyWeather.viewModel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.model.DailyWeather
 import com.example.domain.useCases.UseCases
 import com.example.weatherapp.common.util.Constants.API_KEY
 import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
@@ -19,9 +15,10 @@ class HomeViewModel(
     private val useCases: UseCases
 ) : ViewModel() {
 
-    private val _dailyWeatherUIState: MutableStateFlow<DailyWeatherUIState> =
+    private val mutableDailyWeatherUIState: MutableStateFlow<DailyWeatherUIState> =
         MutableStateFlow(DailyWeatherUIState.Loading)
-    val dailyWeatherUIState: StateFlow<DailyWeatherUIState> = _dailyWeatherUIState.asStateFlow()
+    val dailyWeatherUIState: StateFlow<DailyWeatherUIState> =
+        mutableDailyWeatherUIState.asStateFlow()
 
 
     init {
@@ -41,7 +38,9 @@ class HomeViewModel(
         apiKey: String
     ) {
         viewModelScope.launch {
-            _dailyWeatherUIState.value = DailyWeatherUIState.Loading
+
+            mutableDailyWeatherUIState.value = DailyWeatherUIState.Loading
+
             useCases.runCatching {
                 getCurrentWeather(
                     latitude = latitude,
@@ -49,12 +48,14 @@ class HomeViewModel(
                     apiKey = apiKey
                 )
             }.mapCatching { dailyWeather ->
-                if (dailyWeather != null) _dailyWeatherUIState.value = DailyWeatherUIState.Success(data = dailyWeather)
-                else _dailyWeatherUIState.value = DailyWeatherUIState.Empty
+                if (dailyWeather != null) mutableDailyWeatherUIState.value =
+                    DailyWeatherUIState.Success(data = dailyWeather)
+                else mutableDailyWeatherUIState.value = DailyWeatherUIState.Empty
             }.onFailure {
 
                 Timber.tag("ViewModel").d("There is an error")
-                _dailyWeatherUIState.value = DailyWeatherUIState.Error(message = "Error occurred")
+                mutableDailyWeatherUIState.value =
+                    DailyWeatherUIState.Error(message = "Error occurred")
             }.getOrThrow()
         }
 
