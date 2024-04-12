@@ -7,7 +7,7 @@ import com.example.domain.useCases.getWeeklyWeather.GetWeeklyWeatherUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
-    single {
+    factory {
         UseCases(
             getCurrentWeather = GetCurrentWeatherUseCase(get(),get()),
             getWeeklyAirPollution = GetWeeklyAirPollutionUseCase(get(),get()),

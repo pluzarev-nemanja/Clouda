@@ -72,6 +72,9 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation (libs.koin.androidx.compose)
 
+    implementation (libs.timber)
+
+
     implementation(project(":domain"))
 
 }
