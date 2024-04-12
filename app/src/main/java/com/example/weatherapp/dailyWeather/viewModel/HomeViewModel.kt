@@ -61,20 +61,4 @@ class HomeViewModel(
 
     }
 
-    fun observeUIState(dailyWeatherUIState: DailyWeatherUIState) =
-        when(dailyWeatherUIState){
-            DailyWeatherUIState.Loading ->{
-
-            }
-            is DailyWeatherUIState.Success->{
-
-            }
-            is DailyWeatherUIState.Error ->{
-
-            }
-            DailyWeatherUIState.Empty->{
-
-            }
-        }
-
 }

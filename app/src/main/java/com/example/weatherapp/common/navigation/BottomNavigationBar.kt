@@ -75,4 +75,4 @@ fun BottomNavigationBar(
         }
 
     }
-    }
+}
