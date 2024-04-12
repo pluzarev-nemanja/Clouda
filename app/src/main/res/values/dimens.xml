@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="largeCornerRadius">42dp</dimen>
+    <dimen name="mediumPadding">16dp</dimen>
+    <dimen name="largeHeight">64dp</dimen>
+    <dimen name="iconSize">26dp</dimen>
+
+
+</resources>

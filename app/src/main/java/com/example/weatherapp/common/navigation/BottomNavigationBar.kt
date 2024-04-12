@@ -20,14 +20,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.weatherapp.R
 import com.example.weatherapp.common.navigation.routes.BottomNavItem
-import com.example.weatherapp.common.ui.theme.Dimens.iconSize
-import com.example.weatherapp.common.ui.theme.Dimens.largeCornerRadius
-import com.example.weatherapp.common.ui.theme.Dimens.largeHeight
-import com.example.weatherapp.common.ui.theme.Dimens.mediumPadding
 
 @Composable
 fun BottomNavigationBar(
@@ -47,9 +44,9 @@ fun BottomNavigationBar(
 
     NavigationBar(
         modifier = Modifier
-            .padding(mediumPadding)
-            .height(largeHeight)
-            .clip(RoundedCornerShape(largeCornerRadius)),
+            .padding(dimensionResource(id = R.dimen.mediumPadding))
+            .height(dimensionResource(id = R.dimen.largeHeight))
+            .clip(RoundedCornerShape(dimensionResource(id = R.dimen.largeCornerRadius))),
         containerColor = MaterialTheme.colorScheme.primary
     ) {
 
@@ -68,7 +65,7 @@ fun BottomNavigationBar(
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    modifier = Modifier.size(iconSize),
+                    modifier = Modifier.size(dimensionResource(id = R.dimen.iconSize)),
                     painter = painterResource(id = item.icon),
                     contentDescription = item.title,
                     tint = if (selectedIndex == index) MaterialTheme.colorScheme.inversePrimary
