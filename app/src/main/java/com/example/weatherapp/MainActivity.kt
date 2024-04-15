@@ -22,6 +22,8 @@ class MainActivity : ComponentActivity() {
 
     private val homeViewModel by viewModel<HomeViewModel>()
     private val airPollutionViewModel by viewModel<AirPollutionViewModel>()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
