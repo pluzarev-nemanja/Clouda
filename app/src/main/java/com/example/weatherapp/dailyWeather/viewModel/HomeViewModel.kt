@@ -53,7 +53,7 @@ class HomeViewModel(
                 else mutableDailyWeatherUIState.value = DailyWeatherUIState.Empty
             }.onFailure {
 
-                Timber.tag("ViewModel").d("There is an error")
+                Timber.tag("HomeViewModel").d("There is an error")
                 mutableDailyWeatherUIState.value =
                     DailyWeatherUIState.Error(message = "Error occurred")
             }.getOrThrow()

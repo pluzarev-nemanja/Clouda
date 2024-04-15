@@ -16,13 +16,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,31 +40,34 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.domain.model.DailyWeather
 import com.example.weatherapp.R
-import com.example.weatherapp.common.navigation.routes.BottomNavItem
+import com.example.weatherapp.common.components.LoadingScreen
 import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import java.util.Date
+import java.util.Locale
 import kotlin.math.roundToInt
 
 @Composable
 fun HomeScreen(
     dailyWeatherUIState: DailyWeatherUIState,
     paddingValues: PaddingValues,
-    navController: NavHostController
+    navController: NavHostController,
+    onNavigate: () -> Unit
 ) {
 
 
     when (dailyWeatherUIState) {
         DailyWeatherUIState.Loading -> LoadingScreen()
 
-        is DailyWeatherUIState.Success -> {
-            CurrentWeatherScreen(
-                dailyWeather = dailyWeatherUIState.data,
-                paddingValues = paddingValues,
-                navController = navController
-            )
-        }
+        is DailyWeatherUIState.Success -> CurrentWeatherScreen(
+            dailyWeather = dailyWeatherUIState.data,
+            paddingValues = paddingValues,
+            navController = navController,
+            onNavigate = onNavigate
+        )
 
         is DailyWeatherUIState.Error -> {
 
@@ -79,45 +81,40 @@ fun HomeScreen(
 
 }
 
-@Composable
-fun LoadingScreen(
-    modifier: Modifier = Modifier
-) {
-
-    Column(
-        modifier = modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        CircularProgressIndicator(
-            color = MaterialTheme.colorScheme.primary,
-            strokeWidth = dimensionResource(id = R.dimen.progressBarSize)
-        )
-    }
-}
-
 @SuppressLint("NewApi")
 @Composable
 fun CurrentWeatherScreen(
     dailyWeather: DailyWeather,
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues,
-    navController: NavHostController
+    navController: NavHostController,
+    onNavigate: () -> Unit
 ) {
     var formatted by remember {
         mutableStateOf("")
     }
-    LaunchedEffect(key1 = true) {
-        val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+    val current = remember {
+        LocalDateTime.now()
+    }
+    val formatter = remember {
+        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+    }
+    LaunchedEffect(key1 = dailyWeather) {
         formatted = current.format(formatter)
     }
+
 
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(brush = Brush.verticalGradient(listOf( Color.LightGray,MaterialTheme.colorScheme.primaryContainer)))
+            .background(
+                brush = Brush.verticalGradient(
+                    listOf(
+                        Color.LightGray,
+                        MaterialTheme.colorScheme.primaryContainer
+                    )
+                )
+            )
             .padding(top = paddingValues.calculateTopPadding()),
     ) {
 
@@ -149,12 +146,12 @@ fun CurrentWeatherScreen(
                 Text(
                     text = dailyWeather.currentTemp.roundToInt().toString().plus("°C"),
                     fontWeight = FontWeight.Bold,
-                    fontSize = 110.sp
+                    fontSize = dimensionResource(id = R.dimen.extraLargeFontSize).value.sp
                 )
                 Text(
                     text = dailyWeather.location,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 40.sp
+                    fontSize = dimensionResource(id = R.dimen.mediumFontSize).value.sp
                 )
             }
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.extraLargePadding)))
@@ -168,7 +165,8 @@ fun CurrentWeatherScreen(
             ) {
                 WeatherDetailsItem(
                     icon = R.drawable.ic_sun,
-                    text = "Feels like: ".plus(dailyWeather.feelsLike.roundToInt().toString()).plus("°C")
+                    text = "Feels like: ".plus(dailyWeather.feelsLike.roundToInt().toString())
+                        .plus("°C")
                 )
                 Divider(
                     color = MaterialTheme.colorScheme.inversePrimary, modifier = Modifier
@@ -187,7 +185,7 @@ fun CurrentWeatherScreen(
                         modifier = Modifier.size(dimensionResource(id = R.dimen.mediumIconSize))
                     )
                     Button(onClick = {
-                        navController.navigate(BottomNavItem.AirPollution.route)
+                        onNavigate.invoke()
                     }) {
                         Text(text = "Check air pollution")
                     }
