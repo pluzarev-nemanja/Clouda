@@ -125,7 +125,7 @@ fun AirPollutionContent(
             .fillMaxSize()
     ) {
 
-        items(pastAirPollutionList.takeLast(5)) { pastAirPollution: PastAirPollution ->
+        items(pastAirPollutionList) { pastAirPollution: PastAirPollution ->
             AirPollutionItem(
                 pastAirPollution = pastAirPollution
             )

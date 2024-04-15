@@ -24,9 +24,11 @@ class GetWeeklyAirPollutionUseCase(
                 endingDay = endingDay,
                 apiKey = apiKey
             )
-        }.mapCatching {
+        }
+        .mapCatching {
             mapper.mappingObjects(it)
-        }.onFailure {
+        }
+        .onFailure {
             Log.d(this::class.simpleName, "There is an error")
         }.getOrThrow()
 

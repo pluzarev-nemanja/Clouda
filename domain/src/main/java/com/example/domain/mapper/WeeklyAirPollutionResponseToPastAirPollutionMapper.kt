@@ -7,7 +7,7 @@ import com.example.domain.model.PastAirPollution
 class WeeklyAirPollutionResponseToPastAirPollutionMapper :
     Mapper<WeeklyAirPollutionsResponse, List<PastAirPollution>> {
     override fun mappingObjects(input: WeeklyAirPollutionsResponse): List<PastAirPollution> =
-        input.list.map { pollution: Pollution ->
+        input.list.takeLast(5).map { pollution: Pollution ->
             PastAirPollution(
                 co = pollution.components.co,
                 no = pollution.components.no,
