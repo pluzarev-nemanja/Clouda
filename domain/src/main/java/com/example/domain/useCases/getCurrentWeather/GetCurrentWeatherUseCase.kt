@@ -13,9 +13,8 @@ class GetCurrentWeatherUseCase(
     suspend operator fun invoke(
         latitude: Double = 0.0,
         longitude: Double = 0.0,
-        apiKey: String
     ): DailyWeather = remoteRepository.runCatching {
-        getCurrentWeatherData(latitude = latitude, longitude = longitude, apiKey = apiKey)
+        getCurrentWeatherData(latitude = latitude, longitude = longitude)
     }.mapCatching {
         mapper.mappingObjects(it)
     }.onFailure {

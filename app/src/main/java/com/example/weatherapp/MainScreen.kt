@@ -24,7 +24,8 @@ import timber.log.Timber
 fun MainScreen(
     navController: NavHostController,
     dailyWeatherUIState: DailyWeatherUIState,
-    airPollutionUIState: AirPollutionUIState
+    airPollutionUIState: AirPollutionUIState,
+    formatDate: (Long) -> String
 ) {
 
     var selectedIndex by rememberSaveable {
@@ -48,6 +49,7 @@ fun MainScreen(
             dailyWeatherUIState = dailyWeatherUIState,
             paddingValues = paddingValues,
             airPollutionUIState = airPollutionUIState,
+            formatDate = formatDate,
             onNavigate = {
                 navController.navigate(BottomNavItem.AirPollution.route)
                 selectedIndex = 2

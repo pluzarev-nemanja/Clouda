@@ -1,5 +1,7 @@
 package com.example.weatherapp.airPollution.screen.pollution
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,6 +18,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,11 +31,16 @@ import com.example.domain.model.PastAirPollution
 import com.example.weatherapp.R
 import com.example.weatherapp.airPollution.uiState.AirPollutionUIState
 import com.example.weatherapp.common.components.LoadingScreen
+import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.Date
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AirPollutionScreen(
     paddingValues: PaddingValues,
-    airPollutionUIState: AirPollutionUIState
+    airPollutionUIState: AirPollutionUIState,
+    formatDate: (Long) -> String
 ) {
 
 
@@ -43,17 +51,20 @@ fun AirPollutionScreen(
         is AirPollutionUIState.Error -> {}
         is AirPollutionUIState.Success -> PastAirPollutionScreen(
             pastAirPollutionList = airPollutionUIState.data,
-            paddingValues = paddingValues
+            paddingValues = paddingValues,
+            formatDate = formatDate
         )
     }
 }
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun PastAirPollutionScreen(
     pastAirPollutionList: List<PastAirPollution>,
     modifier: Modifier = Modifier,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    formatDate: (Long) -> String
 ) {
 
     Column(
@@ -68,7 +79,8 @@ fun PastAirPollutionScreen(
             "past 5 days data"
         )
         AirPollutionContent(
-            pastAirPollutionList = pastAirPollutionList
+            pastAirPollutionList = pastAirPollutionList,
+            formatDate = formatDate
         )
     }
 
@@ -114,10 +126,12 @@ fun Header(
 
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AirPollutionContent(
     pastAirPollutionList: List<PastAirPollution>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    formatDate: (Long) -> String
 ) {
 
     LazyColumn(
@@ -127,17 +141,21 @@ fun AirPollutionContent(
 
         items(pastAirPollutionList) { pastAirPollution: PastAirPollution ->
             AirPollutionItem(
-                pastAirPollution = pastAirPollution
+                pastAirPollution = pastAirPollution,
+                formatDate = formatDate
             )
         }
     }
 
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AirPollutionItem(
-    pastAirPollution: PastAirPollution
+    pastAirPollution: PastAirPollution,
+    formatDate: (Long) -> String
 ) {
+
 
     Column(
         modifier = Modifier
@@ -148,7 +166,7 @@ fun AirPollutionItem(
     ) {
         Text(
             modifier = Modifier.padding(bottom = dimensionResource(id = R.dimen.smallPadding)),
-            text = "MONDAY",
+            text = formatDate.invoke(pastAirPollution.time),
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Serif
         )

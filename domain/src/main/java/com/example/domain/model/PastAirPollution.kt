@@ -8,6 +8,7 @@ data class PastAirPollution(
     val so2: Double,
     val pm25: Double,
     val pm10: Double,
-    val nh3: Double
+    val nh3: Double,
+    val time : Long
 
 )
