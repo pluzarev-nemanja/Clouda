@@ -5,6 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class Pollution(
     val components: Components,
     @SerializedName("dt")
-    val time: Int,
+    val time: Long,
     val main: MainX
 )

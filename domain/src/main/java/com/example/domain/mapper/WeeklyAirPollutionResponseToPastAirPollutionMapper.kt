@@ -7,17 +7,23 @@ import com.example.domain.model.PastAirPollution
 class WeeklyAirPollutionResponseToPastAirPollutionMapper :
     Mapper<WeeklyAirPollutionsResponse, List<PastAirPollution>> {
     override fun mappingObjects(input: WeeklyAirPollutionsResponse): List<PastAirPollution> =
-        input.list.map { pollution: Pollution ->
-            PastAirPollution(
-                co = pollution.components.co,
-                no = pollution.components.no,
-                no2 = pollution.components.no2,
-                o3 = pollution.components.o3,
-                so2 = pollution.components.so2,
-                pm25 = pollution.components.pm25,
-                pm10 = pollution.components.pm10,
-                nh3 = pollution.components.nh3
-            )
-        }
+        input.list
+            .slice(0 until   input.list.size step 24)
+            .map { pollution: Pollution ->
+
+                PastAirPollution(
+                    co = pollution.components.co,
+                    no = pollution.components.no,
+                    no2 = pollution.components.no2,
+                    o3 = pollution.components.o3,
+                    so2 = pollution.components.so2,
+                    pm25 = pollution.components.pm25,
+                    pm10 = pollution.components.pm10,
+                    nh3 = pollution.components.nh3,
+                    time = pollution.time
+                )
+
+            }
+            .asReversed()
 
 }

@@ -13,12 +13,10 @@ class GetWeeklyWeatherUseCase(
     suspend operator fun invoke(
         latitude: Double = 0.0,
         longitude: Double = 0.0,
-        apiKey: String
     ): List<WeeklyWeather> = remoteRepository.runCatching {
         getWeeklyWeatherData(
             latitude = latitude,
             longitude = longitude,
-            apiKey = apiKey
         )
     }.mapCatching {
         mapper.mappingObjects(it)

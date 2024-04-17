@@ -3,7 +3,6 @@ package com.example.weatherapp.dailyWeather.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.useCases.UseCases
-import com.example.weatherapp.common.util.Constants.API_KEY
 import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -26,7 +25,6 @@ class HomeViewModel(
         getCurrentWeather(
             latitude = 42.2,
             longitude = 32.2,
-            apiKey = API_KEY
         )
 
 
@@ -35,7 +33,6 @@ class HomeViewModel(
     private fun getCurrentWeather(
         latitude: Double = 0.0,
         longitude: Double = 0.0,
-        apiKey: String
     ) {
         viewModelScope.launch {
 
@@ -45,7 +42,6 @@ class HomeViewModel(
                 getCurrentWeather(
                     latitude = latitude,
                     longitude = longitude,
-                    apiKey = apiKey
                 )
             }.mapCatching { dailyWeather ->
                 if (dailyWeather != null) mutableDailyWeatherUIState.value =
@@ -53,7 +49,7 @@ class HomeViewModel(
                 else mutableDailyWeatherUIState.value = DailyWeatherUIState.Empty
             }.onFailure {
 
-                Timber.tag("ViewModel").d("There is an error")
+                Timber.tag("HomeViewModel").d("There is an error")
                 mutableDailyWeatherUIState.value =
                     DailyWeatherUIState.Error(message = "Error occurred")
             }.getOrThrow()

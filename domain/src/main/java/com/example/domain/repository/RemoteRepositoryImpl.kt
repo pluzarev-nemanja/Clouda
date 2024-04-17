@@ -12,35 +12,29 @@ class RemoteRepositoryImpl(
     override suspend fun getCurrentWeatherData(
         latitude: Double,
         longitude: Double,
-        apiKey: String
     ): CurrentWeatherResponse = api.getCurrentWeathersData(
         latitude = latitude,
         longitude = longitude,
-        apiKey = apiKey
     )
 
     override suspend fun getWeeklyWeatherData(
         latitude: Double,
         longitude: Double,
-        apiKey: String
     ): WeeklyWeatherResponse = api.getWeeklyWeatherData(
         latitude = latitude,
         longitude = longitude,
-        apiKey = apiKey
     )
 
     override suspend fun getWeeklyAirPollutionData(
         latitude: Double,
         longitude: Double,
-        startingDay: Int,
-        endingDay: Int,
-        apiKey: String
+        startingDay: Long,
+        endingDay: Long,
     ): WeeklyAirPollutionsResponse = api.getWeeklyAirPollutionData(
         latitude = latitude,
         longitude = longitude,
         startingDay = startingDay,
         endingDay = endingDay,
-        apiKey = apiKey
     )
 
 

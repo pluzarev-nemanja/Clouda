@@ -13,20 +13,20 @@ class GetWeeklyAirPollutionUseCase(
     suspend operator fun invoke(
         latitude: Double = 0.0,
         longitude: Double = 0.0,
-        startingDay: Int = 0,
-        endingDay: Int = 0,
-        apiKey: String
+        startingDay: Long = 0L,
+        endingDay: Long = 0L
     ): List<PastAirPollution> = remoteRepository.runCatching {
             getWeeklyAirPollutionData(
                 latitude = latitude,
                 longitude = longitude,
                 startingDay = startingDay,
                 endingDay = endingDay,
-                apiKey = apiKey
             )
-        }.mapCatching {
+        }
+        .mapCatching {
             mapper.mappingObjects(it)
-        }.onFailure {
+        }
+        .onFailure {
             Log.d(this::class.simpleName, "There is an error")
         }.getOrThrow()
 

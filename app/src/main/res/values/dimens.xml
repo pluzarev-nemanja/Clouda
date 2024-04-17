@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- region paddings values-->
+        <dimen name="largeCornerRadius">42dp</dimen>
+        <dimen name="mediumPadding">16dp</dimen>
+        <dimen name="largePadding">28dp</dimen>
+        <dimen name="extraLargePadding">68dp</dimen>
+        <dimen name="smallPadding">8dp</dimen>
+        <dimen name="largeHeight">64dp</dimen>
+        <dimen name="iconSize">26dp</dimen>
+        <dimen name="mediumIconSize">46dp</dimen>
+        <dimen name="LargeIconSize">200dp</dimen>
+        <dimen name="progressBarSize">5dp</dimen>
+    <!-- end region paddings values -->
 
-    <dimen name="largeCornerRadius">42dp</dimen>
-    <dimen name="mediumPadding">16dp</dimen>
-    <dimen name="largeHeight">64dp</dimen>
-    <dimen name="iconSize">26dp</dimen>
-
+    <!-- region text values-->
+        <dimen name="extraLargeFontSize">110sp</dimen>
+        <dimen name="mediumFontSize">40sp</dimen>
+    <!-- end region paddings values-->
 
 </resources>
