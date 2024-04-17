@@ -163,8 +163,7 @@ fun CurrentWeatherScreen(
             ) {
                 WeatherDetailsItem(
                     icon = R.drawable.ic_sun,
-                    text = stringResource(R.string.feelsLike).plus(dailyWeather.feelsLike.roundToInt().toString())
-                        .plus(stringResource(id = R.string.celsius))
+                    text = stringResource(R.string.feelsLike,dailyWeather.feelsLike.roundToInt().toString())
                 )
                 Divider(
                     color = MaterialTheme.colorScheme.inversePrimary, modifier = Modifier

@@ -28,6 +28,14 @@ class AirPollutionViewModel(
     val airPollutionUIState: StateFlow<AirPollutionUIState> =
         mutableAirPollutionUIState.asStateFlow()
 
+    private val today = LocalDateTime
+        .now()
+        .toEpochSecond(ZoneOffset.UTC)
+
+    private val pastDays = LocalDateTime.now()
+        .minusDays(5)
+        .withHour(12)
+        .toEpochSecond(ZoneOffset.ofHours(3))
 
     init {
 
@@ -45,15 +53,6 @@ class AirPollutionViewModel(
     ) {
 
         viewModelScope.launch {
-
-            val today = LocalDateTime
-                .now()
-                .toEpochSecond(ZoneOffset.UTC)
-
-            val pastDays = LocalDateTime.now()
-                .minusDays(5)
-                .withHour(12)
-                .toEpochSecond(ZoneOffset.ofHours(3))
 
 
             mutableAirPollutionUIState.value = AirPollutionUIState.Loading
