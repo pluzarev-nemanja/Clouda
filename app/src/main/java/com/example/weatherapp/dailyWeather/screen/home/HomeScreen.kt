@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -54,7 +55,6 @@ import kotlin.math.roundToInt
 fun HomeScreen(
     dailyWeatherUIState: DailyWeatherUIState,
     paddingValues: PaddingValues,
-    navController: NavHostController,
     onNavigate: () -> Unit
 ) {
 
@@ -65,7 +65,6 @@ fun HomeScreen(
         is DailyWeatherUIState.Success -> CurrentWeatherScreen(
             dailyWeather = dailyWeatherUIState.data,
             paddingValues = paddingValues,
-            navController = navController,
             onNavigate = onNavigate
         )
 
@@ -87,7 +86,6 @@ fun CurrentWeatherScreen(
     dailyWeather: DailyWeather,
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues,
-    navController: NavHostController,
     onNavigate: () -> Unit
 ) {
     var formatted by remember {
@@ -144,7 +142,7 @@ fun CurrentWeatherScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = dailyWeather.currentTemp.roundToInt().toString().plus("°C"),
+                    text = dailyWeather.currentTemp.roundToInt().toString().plus(stringResource(R.string.celsius)),
                     fontWeight = FontWeight.Bold,
                     fontSize = dimensionResource(id = R.dimen.extraLargeFontSize).value.sp
                 )
@@ -165,8 +163,8 @@ fun CurrentWeatherScreen(
             ) {
                 WeatherDetailsItem(
                     icon = R.drawable.ic_sun,
-                    text = "Feels like: ".plus(dailyWeather.feelsLike.roundToInt().toString())
-                        .plus("°C")
+                    text = stringResource(R.string.feelsLike).plus(dailyWeather.feelsLike.roundToInt().toString())
+                        .plus(stringResource(id = R.string.celsius))
                 )
                 Divider(
                     color = MaterialTheme.colorScheme.inversePrimary, modifier = Modifier
@@ -180,14 +178,14 @@ fun CurrentWeatherScreen(
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_pollution),
-                        contentDescription = "Air pollution",
+                        contentDescription = stringResource(R.string.airPollution),
 
                         modifier = Modifier.size(dimensionResource(id = R.dimen.mediumIconSize))
                     )
                     Button(onClick = {
                         onNavigate.invoke()
                     }) {
-                        Text(text = "Check air pollution")
+                        Text(text = stringResource(R.string.checkAirPollution))
                     }
                 }
                 Divider(

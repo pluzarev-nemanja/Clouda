@@ -15,6 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.weatherapp.airPollution.viewModel.AirPollutionViewModel
 import com.example.weatherapp.common.navigation.graph.NavigationGraph
 import com.example.weatherapp.common.ui.theme.WeatherAppTheme
+import com.example.weatherapp.common.util.DateFormatter.formatDate
 import com.example.weatherapp.dailyWeather.screen.home.HomeScreen
 import com.example.weatherapp.dailyWeather.viewModel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -44,7 +45,7 @@ class MainActivity : ComponentActivity() {
                         dailyWeatherUIState = dailyWeatherUIState,
                         airPollutionUIState = airPollutionUIState,
                         formatDate = { date ->
-                            airPollutionViewModel.formatDate(date)
+                            date.formatDate()
                         }
                     )
 

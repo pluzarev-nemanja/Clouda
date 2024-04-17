@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import com.example.domain.model.PastAirPollution
@@ -74,9 +75,9 @@ fun PastAirPollutionScreen(
             .padding(top = paddingValues.calculateTopPadding())
     ) {
         Header(
-            title = "Air pollution",
+            title = stringResource(id = R.string.airPollution),
             icon = painterResource(id = R.drawable.ic_pollution),
-            "past 5 days data"
+            stringResource(R.string.pastFiveDaysData)
         )
         AirPollutionContent(
             pastAirPollutionList = pastAirPollutionList,
@@ -181,8 +182,8 @@ fun AirPollutionItem(
                     .background(MaterialTheme.colorScheme.inversePrimary)
 
             ) {
-                Text(text = "CO: ${pastAirPollution.co}")
-                Text(text = "NH3: ${pastAirPollution.nh3}")
+                Text(text = stringResource(R.string.co, pastAirPollution.co))
+                Text(text = stringResource(R.string.nh3, pastAirPollution.nh3))
             }
             Column(
                 modifier = Modifier
@@ -191,8 +192,8 @@ fun AirPollutionItem(
                     .background(MaterialTheme.colorScheme.inversePrimary)
             ) {
 
-                Text(text = "NO: ${pastAirPollution.no}")
-                Text(text = "O3: ${pastAirPollution.o3}")
+                Text(text = stringResource(R.string.no, pastAirPollution.no))
+                Text(text = stringResource(R.string.o3, pastAirPollution.o3))
             }
             Column(
                 modifier = Modifier
@@ -201,8 +202,8 @@ fun AirPollutionItem(
                     .background(MaterialTheme.colorScheme.inversePrimary)
             ) {
 
-                Text(text = "PM10: ${pastAirPollution.pm10}")
-                Text(text = "NO2: ${pastAirPollution.no2}")
+                Text(text = stringResource(R.string.pm10, pastAirPollution.pm10))
+                Text(text = stringResource(R.string.no2, pastAirPollution.no2))
             }
             Column(
                 modifier = Modifier
@@ -211,8 +212,8 @@ fun AirPollutionItem(
                     .background(MaterialTheme.colorScheme.inversePrimary)
             ) {
 
-                Text(text = "PM25: ${pastAirPollution.pm25}")
-                Text(text = "SO2: ${pastAirPollution.so2}")
+                Text(text = stringResource(R.string.pm25, pastAirPollution.pm25))
+                Text(text = stringResource(R.string.so2, pastAirPollution.so2))
             }
         }
     }

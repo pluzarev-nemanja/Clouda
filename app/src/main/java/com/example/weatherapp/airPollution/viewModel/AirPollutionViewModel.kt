@@ -79,6 +79,5 @@ class AirPollutionViewModel(
         }
     }
 
-    fun formatDate(time: Long): String = SimpleDateFormat(DATE_FORMAT).format(time * 1000)
 
 }

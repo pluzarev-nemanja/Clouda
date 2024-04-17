@@ -33,7 +33,6 @@ fun NavigationGraph(
             HomeScreen(
                 dailyWeatherUIState = dailyWeatherUIState,
                 paddingValues = paddingValues,
-                navController = navController,
                 onNavigate = onNavigate
             )
         }
