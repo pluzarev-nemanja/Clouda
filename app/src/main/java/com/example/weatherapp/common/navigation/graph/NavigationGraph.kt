@@ -14,6 +14,7 @@ import com.example.weatherapp.common.navigation.routes.BottomNavItem
 import com.example.weatherapp.dailyWeather.screen.home.HomeScreen
 import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
 import com.example.weatherapp.weeklyWeather.screen.weekly.WeeklyWeatherScreen
+import com.example.weatherapp.weeklyWeather.uiState.WeeklyWeatherUIState
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -22,8 +23,12 @@ fun NavigationGraph(
     dailyWeatherUIState: DailyWeatherUIState,
     paddingValues: PaddingValues,
     airPollutionUIState: AirPollutionUIState,
+    weeklyWeatherUIState: WeeklyWeatherUIState,
     onNavigate: () -> Unit,
-    formatDate : (Long) -> String
+    formatDate: (Long) -> String,
+    formatDay: (Long) -> String,
+    formatHour: (Long) -> String
+
 ) {
 
 
@@ -39,7 +44,10 @@ fun NavigationGraph(
 
         composable(BottomNavItem.WeeklyWeather.route) {
             WeeklyWeatherScreen(
-                paddingValues = paddingValues
+                paddingValues = paddingValues,
+                weeklyWeatherUIState = weeklyWeatherUIState,
+                formatDay = formatDay,
+                formatHour = formatHour
             )
         }
         composable(BottomNavItem.AirPollution.route) {

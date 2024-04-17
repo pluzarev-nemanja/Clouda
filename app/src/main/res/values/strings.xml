@@ -13,4 +13,12 @@
     <string name="no2">NO2: %1$s</string>
     <string name="pm25">PM25: %1$s</string>
     <string name="so2">SO2: %1$s</string>
+    <string name="nextWeek">Next Week</string>
+    <string name="weatherIcon">weather icon</string>
+    <string name="maxTemp">Max Temp</string>
+    <string name="minTemp">Min Temp</string>
+    <string name="sunset">Sunset</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="windSpeed">Wind Speed</string>
+    <string name="windSpeedUnits">m/s</string>
 </resources>

@@ -18,14 +18,17 @@ import com.example.weatherapp.common.navigation.BottomNavigationBar
 import com.example.weatherapp.common.navigation.graph.NavigationGraph
 import com.example.weatherapp.common.navigation.routes.BottomNavItem
 import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
-import timber.log.Timber
+import com.example.weatherapp.weeklyWeather.uiState.WeeklyWeatherUIState
 
 @Composable
 fun MainScreen(
     navController: NavHostController,
     dailyWeatherUIState: DailyWeatherUIState,
     airPollutionUIState: AirPollutionUIState,
-    formatDate: (Long) -> String
+    weeklyWeatherUIState: WeeklyWeatherUIState,
+    formatDate: (Long) -> String,
+    formatDay: (Long) -> String,
+    formatHour: (Long) -> String
 ) {
 
     var selectedIndex by rememberSaveable {
@@ -49,7 +52,10 @@ fun MainScreen(
             dailyWeatherUIState = dailyWeatherUIState,
             paddingValues = paddingValues,
             airPollutionUIState = airPollutionUIState,
+            weeklyWeatherUIState = weeklyWeatherUIState,
             formatDate = formatDate,
+            formatDay = formatDay,
+            formatHour = formatHour,
             onNavigate = {
                 navController.navigate(BottomNavItem.AirPollution.route)
                 selectedIndex = 2

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class WeatherY(
     val clouds: CloudsX,
     @SerializedName("dt")
-    val time: Int,
+    val time: Long,
     @SerializedName("dt_txt")
     val timeTxt: String,
     val main: MainXX,

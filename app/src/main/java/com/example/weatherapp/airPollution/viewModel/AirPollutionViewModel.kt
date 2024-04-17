@@ -6,16 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.PastAirPollution
 import com.example.domain.useCases.UseCases
-import com.example.domain.util.Constants.DATE_FORMAT
 import com.example.weatherapp.airPollution.uiState.AirPollutionUIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.ZoneOffset
 
 @RequiresApi(Build.VERSION_CODES.O)
