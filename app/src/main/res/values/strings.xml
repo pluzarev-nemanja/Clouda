@@ -4,7 +4,7 @@
     <string name="feelsLike">Feels like: %s °C</string>
     <string name="airPollution">Air pollution</string>
     <string name="checkAirPollution">Check air pollution</string>
-    <string name="pastFiveDaysData">past 5 days data</string>
+    <string name="pastWeek">past week</string>
     <string name="co">CO: %1$s</string>
     <string name="nh3">NH3: %1$s</string>
     <string name="no">NO: %1$s</string>

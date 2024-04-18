@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.PastAirPollution
 import com.example.domain.useCases.UseCases
+import com.example.weatherapp.airPollution.mapper.PastAirPollutionToAirPollutionUIModelMapper
+import com.example.weatherapp.airPollution.model.AirPollutionUIModel
 import com.example.weatherapp.airPollution.uiState.AirPollutionUIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +19,8 @@ import java.time.ZoneOffset
 
 @RequiresApi(Build.VERSION_CODES.O)
 class AirPollutionViewModel(
-    private val useCases: UseCases
+    private val useCases: UseCases,
+    private val mapper: PastAirPollutionToAirPollutionUIModelMapper
 ) : ViewModel() {
 
     private val mutableAirPollutionUIState: MutableStateFlow<AirPollutionUIState> =
@@ -61,10 +64,13 @@ class AirPollutionViewModel(
                     endingDay = today
                 )
             }.mapCatching { pastAirPollutionList: List<PastAirPollution> ->
-                if (pastAirPollutionList.isNotEmpty()) mutableAirPollutionUIState.value =
-                    AirPollutionUIState.Success(data = pastAirPollutionList)
-                else mutableAirPollutionUIState.value = AirPollutionUIState.Empty
+                mapper.mappingObjects(pastAirPollutionList)
 
+
+            }.mapCatching { airPollutionUIModelList: List<AirPollutionUIModel> ->
+
+                mutableAirPollutionUIState.value =
+                    AirPollutionUIState.Success(data = airPollutionUIModelList)
 
             }.onFailure {
                 Timber.e(it, "Something went wrong!")
