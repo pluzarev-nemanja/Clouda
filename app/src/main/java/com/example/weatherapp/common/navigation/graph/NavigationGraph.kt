@@ -25,9 +25,7 @@ fun NavigationGraph(
     airPollutionUIState: AirPollutionUIState,
     weeklyWeatherUIState: WeeklyWeatherUIState,
     onNavigate: () -> Unit,
-    formatDate: (Long) -> String,
-    formatDay: (Long) -> String,
-    formatHour: (Long) -> String
+    formatDate: (Long) -> String
 
 ) {
 
@@ -45,9 +43,7 @@ fun NavigationGraph(
         composable(BottomNavItem.WeeklyWeather.route) {
             WeeklyWeatherScreen(
                 paddingValues = paddingValues,
-                weeklyWeatherUIState = weeklyWeatherUIState,
-                formatDay = formatDay,
-                formatHour = formatHour
+                weeklyWeatherUIState = weeklyWeatherUIState
             )
         }
         composable(BottomNavItem.AirPollution.route) {

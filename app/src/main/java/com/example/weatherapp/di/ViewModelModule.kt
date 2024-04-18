@@ -14,6 +14,6 @@ val viewModelModule = module {
         AirPollutionViewModel(get())
     }
     viewModel<WeeklyWeatherViewModel>{
-        WeeklyWeatherViewModel(get())
+        WeeklyWeatherViewModel(get(),get())
     }
 }

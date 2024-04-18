@@ -26,9 +26,7 @@ fun MainScreen(
     dailyWeatherUIState: DailyWeatherUIState,
     airPollutionUIState: AirPollutionUIState,
     weeklyWeatherUIState: WeeklyWeatherUIState,
-    formatDate: (Long) -> String,
-    formatDay: (Long) -> String,
-    formatHour: (Long) -> String
+    formatDate: (Long) -> String
 ) {
 
     var selectedIndex by rememberSaveable {
@@ -54,8 +52,6 @@ fun MainScreen(
             airPollutionUIState = airPollutionUIState,
             weeklyWeatherUIState = weeklyWeatherUIState,
             formatDate = formatDate,
-            formatDay = formatDay,
-            formatHour = formatHour,
             onNavigate = {
                 navController.navigate(BottomNavItem.AirPollution.route)
                 selectedIndex = 2

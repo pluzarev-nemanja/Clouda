@@ -52,12 +52,6 @@ class MainActivity : ComponentActivity() {
                         weeklyWeatherUIState = weeklyWeatherUIState,
                         formatDate = { date ->
                             date.formatDate(DATE_FORMAT_YEAR_TIME)
-                        },
-                        formatDay = { day ->
-                            day.formatDate(DATE_FORMAT_ONLY_DAY)
-                        },
-                        formatHour = { day ->
-                            day.formatDate(DATE_FORMAT_HOUR_MINUTES)
                         }
                     )
 
