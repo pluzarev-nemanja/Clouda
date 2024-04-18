@@ -142,7 +142,10 @@ fun CurrentWeatherScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = dailyWeather.currentTemp.roundToInt().toString().plus(stringResource(R.string.celsius)),
+                    text = stringResource(
+                        id = R.string.celsius,
+                        dailyWeather.currentTemp.toInt().toString()
+                    ),
                     fontWeight = FontWeight.Bold,
                     fontSize = dimensionResource(id = R.dimen.extraLargeFontSize).value.sp
                 )

@@ -5,6 +5,6 @@ import java.text.SimpleDateFormat
 
 object DateFormatter {
 
-    fun Long.formatDate(): String = SimpleDateFormat(Constants.DATE_FORMAT).format(this * 1000)
+    fun Long.formatDate(dateFormat: String): String = SimpleDateFormat(dateFormat).format(this * 1000)
 
 }
