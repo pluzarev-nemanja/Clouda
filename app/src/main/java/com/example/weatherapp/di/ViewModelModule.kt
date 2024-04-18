@@ -8,7 +8,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel<HomeViewModel>{
-        HomeViewModel(get())
+        HomeViewModel(get(),get())
     }
     viewModel<AirPollutionViewModel>{
         AirPollutionViewModel(get())

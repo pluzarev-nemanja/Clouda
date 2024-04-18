@@ -21,7 +21,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,19 +36,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import com.example.domain.model.DailyWeather
 import com.example.weatherapp.R
 import com.example.weatherapp.common.components.LoadingScreen
+import com.example.weatherapp.dailyWeather.model.DailyWeatherUIModel
 import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-import java.util.Date
-import java.util.Locale
-import kotlin.math.roundToInt
 
 @Composable
 fun HomeScreen(
@@ -83,24 +77,11 @@ fun HomeScreen(
 @SuppressLint("NewApi")
 @Composable
 fun CurrentWeatherScreen(
-    dailyWeather: DailyWeather,
+    dailyWeather: DailyWeatherUIModel,
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues,
     onNavigate: () -> Unit
 ) {
-    var formatted by remember {
-        mutableStateOf("")
-    }
-    val current = remember {
-        LocalDateTime.now()
-    }
-    val formatter = remember {
-        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-    }
-    LaunchedEffect(key1 = dailyWeather) {
-        formatted = current.format(formatter)
-    }
-
 
     Box(
         modifier = modifier
@@ -125,11 +106,11 @@ fun CurrentWeatherScreen(
         ) {
             AsyncImage(
                 model = dailyWeather.icon,
-                contentDescription = dailyWeather.weatherDescription,
+                contentDescription = dailyWeather.detailDescription,
                 modifier = Modifier.size(dimensionResource(id = R.dimen.LargeIconSize))
             )
             Text(
-                text = formatted,
+                text = dailyWeather.currentTime,
                 fontWeight = FontWeight.SemiBold,
                 fontSize = MaterialTheme.typography.headlineSmall.fontSize
             )
@@ -144,7 +125,7 @@ fun CurrentWeatherScreen(
                 Text(
                     text = stringResource(
                         id = R.string.celsius,
-                        dailyWeather.currentTemp.toInt().toString()
+                        dailyWeather.currentTemp
                     ),
                     fontWeight = FontWeight.Bold,
                     fontSize = dimensionResource(id = R.dimen.extraLargeFontSize).value.sp
@@ -166,7 +147,10 @@ fun CurrentWeatherScreen(
             ) {
                 WeatherDetailsItem(
                     icon = R.drawable.ic_sun,
-                    text = stringResource(R.string.feelsLike,dailyWeather.feelsLike.roundToInt().toString())
+                    text = stringResource(
+                        R.string.feelsLike,
+                        dailyWeather.feelsLikeTemp
+                    )
                 )
                 Divider(
                     color = MaterialTheme.colorScheme.inversePrimary, modifier = Modifier
@@ -199,7 +183,7 @@ fun CurrentWeatherScreen(
                 )
                 WeatherDetailsItem(
                     icon = R.drawable.ic_wind,
-                    text = dailyWeather.weatherDescription
+                    text = dailyWeather.detailDescription
                 )
             }
 
