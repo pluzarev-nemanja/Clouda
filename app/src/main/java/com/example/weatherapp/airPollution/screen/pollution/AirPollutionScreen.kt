@@ -2,15 +2,18 @@ package com.example.weatherapp.airPollution.screen.pollution
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,9 +21,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.weatherapp.R
 import com.example.weatherapp.airPollution.model.AirPollutionUIModel
 import com.example.weatherapp.airPollution.uiState.AirPollutionUIState
@@ -65,6 +71,7 @@ fun PastAirPollutionScreen(
         )
         AirPollutionContent(
             airPollutionList = airPollutionList,
+            paddingValues = paddingValues
         )
     }
 
@@ -79,7 +86,7 @@ fun Header(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = dimensionResource(id = R.dimen.largePadding)),
+            .padding(bottom = dimensionResource(id = R.dimen.smallPadding)),
         verticalArrangement = Arrangement.SpaceAround,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -103,11 +110,13 @@ fun Header(
 fun AirPollutionContent(
     airPollutionList: List<AirPollutionUIModel>,
     modifier: Modifier = Modifier,
+    paddingValues: PaddingValues
 ) {
 
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
+            .padding(bottom = paddingValues.calculateBottomPadding())
     ) {
 
         items(airPollutionList) { airPollution: AirPollutionUIModel ->
@@ -128,62 +137,79 @@ fun AirPollutionItem(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = dimensionResource(id = R.dimen.mediumPadding)),
-        verticalArrangement = Arrangement.SpaceEvenly,
+            .padding(bottom = dimensionResource(id = R.dimen.smallPadding)),
+        verticalArrangement = Arrangement.SpaceAround,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            modifier = Modifier.padding(bottom = dimensionResource(id = R.dimen.smallPadding)),
             text = airPollution.date,
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Serif
         )
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(end = dimensionResource(id = R.dimen.smallPadding))
-                    .clip(RoundedCornerShape(dimensionResource(id = R.dimen.smallPadding)))
-                    .background(MaterialTheme.colorScheme.inversePrimary)
+        Column {
 
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                Text(text = stringResource(R.string.co, airPollution.carbonMonoxide))
-                Text(text = stringResource(R.string.nh3, airPollution.ammonia))
+                PollutionDataItem(bigText = "NO", data = airPollution.nitrogenMonoxide)
+                PollutionDataItem(bigText = "NO2", data = airPollution.nitrogenDioxide)
+                PollutionDataItem(bigText = "NH3", data = airPollution.ammonia)
+                PollutionDataItem(bigText = "O3", data = airPollution.ozone)
+
             }
-            Column(
-                modifier = Modifier
-                    .padding(end = dimensionResource(id = R.dimen.smallPadding))
-                    .clip(RoundedCornerShape(dimensionResource(id = R.dimen.smallPadding)))
-                    .background(MaterialTheme.colorScheme.inversePrimary)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
+                PollutionDataItem(bigText = "NO", data = airPollution.nitrogenMonoxide)
+                PollutionDataItem(bigText = "NO2", data = airPollution.nitrogenDioxide)
+                PollutionDataItem(bigText = "NH3", data = airPollution.ammonia)
+                PollutionDataItem(bigText = "O3", data = airPollution.ozone)
 
-                Text(text = stringResource(R.string.no, airPollution.nitrogenMonoxide))
-                Text(text = stringResource(R.string.o3, airPollution.ozone))
-            }
-            Column(
-                modifier = Modifier
-                    .padding(end = dimensionResource(id = R.dimen.smallPadding))
-                    .clip(RoundedCornerShape(dimensionResource(id = R.dimen.smallPadding)))
-                    .background(MaterialTheme.colorScheme.inversePrimary)
-            ) {
-
-                Text(text = stringResource(R.string.pm10, airPollution.pm10))
-                Text(text = stringResource(R.string.no2, airPollution.nitrogenDioxide))
-            }
-            Column(
-                modifier = Modifier
-                    .padding(end = dimensionResource(id = R.dimen.smallPadding))
-                    .clip(RoundedCornerShape(dimensionResource(id = R.dimen.smallPadding)))
-                    .background(MaterialTheme.colorScheme.inversePrimary)
-            ) {
-
-                Text(text = stringResource(R.string.pm25, airPollution.pm25))
-                Text(text = stringResource(R.string.so2, airPollution.sulphur))
             }
         }
     }
 
+}
+
+@Composable
+fun PollutionDataItem(
+    bigText: String,
+    data: String
+) {
+
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.padding(end = dimensionResource(id = R.dimen.smallPadding))
+    ) {
+
+        Column(
+            modifier = Modifier
+                .padding(
+                    top = dimensionResource(id = R.dimen.itemPadding)
+                )
+                .size(dimensionResource(id = R.dimen.extraLargePadding))
+                .clip(RoundedCornerShape(dimensionResource(id = R.dimen.iconSize)))
+                .background(MaterialTheme.colorScheme.inversePrimary),
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = bigText,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = data,
+                color = MaterialTheme.colorScheme.onBackground.copy(0.5f)
+            )
+        }
+
+        AsyncImage(
+            modifier = Modifier.size(dimensionResource(id = R.dimen.largeHeight)),
+            model = R.drawable.ic_cloud, contentDescription = stringResource(id = R.string.cloudIcon))
+    }
 
 }

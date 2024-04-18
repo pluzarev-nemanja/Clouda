@@ -22,4 +22,5 @@
     <string name="windSpeed">Wind Speed</string>
     <string name="windSpeedUnits">%s m/s</string>
     <string name="comma">"%s, "</string>
+    <string name="cloudIcon">cloud icon</string>
 </resources>
