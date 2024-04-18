@@ -4,8 +4,8 @@ import com.example.domain.mapper.Mapper
 import com.example.domain.model.WeeklyWeather
 import com.example.domain.util.Constants.DATE_FORMAT_HOUR_MINUTES
 import com.example.domain.util.Constants.DATE_FORMAT_ONLY_DAY
+import com.example.weatherapp.common.util.DateFormatter.formatDate
 import com.example.weatherapp.weeklyWeather.model.WeeklyWeatherUIModel
-import java.text.SimpleDateFormat
 
 class WeeklyWeatherToWeeklyWeatherUIModelMapper :
     Mapper<List<WeeklyWeather>, List<WeeklyWeatherUIModel>> {
@@ -15,12 +15,12 @@ class WeeklyWeatherToWeeklyWeatherUIModelMapper :
             WeeklyWeatherUIModel(
                 city = weeklyWeather.city,
                 countryCode = weeklyWeather.countryCode,
-                day = SimpleDateFormat(DATE_FORMAT_ONLY_DAY).format(weeklyWeather.time * 1000),
+                day = weeklyWeather.time.formatDate(DATE_FORMAT_ONLY_DAY),
                 icon = weeklyWeather.icon,
                 maxTemp = weeklyWeather.maxTemp.toInt().toString(),
                 minTemp = weeklyWeather.minTemp.toInt().toString(),
-                sunset = SimpleDateFormat(DATE_FORMAT_HOUR_MINUTES).format(weeklyWeather.sunset * 1000),
-                sunrise = SimpleDateFormat(DATE_FORMAT_HOUR_MINUTES).format(weeklyWeather.sunrise * 1000),
+                sunset = weeklyWeather.sunset.formatDate(DATE_FORMAT_HOUR_MINUTES),
+                sunrise = weeklyWeather.sunrise.formatDate(DATE_FORMAT_HOUR_MINUTES),
                 windSpeed = weeklyWeather.windSpeed.toString()
             )
         }

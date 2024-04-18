@@ -4,7 +4,7 @@ import com.example.domain.mapper.Mapper
 import com.example.domain.model.PastAirPollution
 import com.example.domain.util.Constants.DATE_FORMAT_DAY_DATE_TIME
 import com.example.weatherapp.airPollution.model.AirPollutionUIModel
-import java.text.SimpleDateFormat
+import com.example.weatherapp.common.util.DateFormatter.formatDate
 
 class PastAirPollutionToAirPollutionUIModelMapper :
     Mapper<List<PastAirPollution>, List<AirPollutionUIModel>> {
@@ -12,7 +12,7 @@ class PastAirPollutionToAirPollutionUIModelMapper :
     override fun mappingObjects(input: List<PastAirPollution>): List<AirPollutionUIModel> =
         input.map { pastAirPollution: PastAirPollution ->
             AirPollutionUIModel(
-                date = SimpleDateFormat(DATE_FORMAT_DAY_DATE_TIME).format(pastAirPollution.time * 1000),
+                date = pastAirPollution.time.formatDate(DATE_FORMAT_DAY_DATE_TIME),
                 carbonMonoxide = pastAirPollution.co.toString(),
                 ammonia = pastAirPollution.nh3.toString(),
                 nitrogenDioxide = pastAirPollution.no2.toString(),
@@ -23,4 +23,6 @@ class PastAirPollutionToAirPollutionUIModelMapper :
                 sulphur = pastAirPollution.so2.toString()
             )
         }
+
+
 }

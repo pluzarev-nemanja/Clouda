@@ -64,6 +64,7 @@ class AirPollutionViewModel(
                     endingDay = today
                 )
             }.mapCatching { pastAirPollutionList: List<PastAirPollution> ->
+
                 mapper.mappingObjects(pastAirPollutionList)
 
 
