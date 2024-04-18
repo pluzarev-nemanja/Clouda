@@ -67,7 +67,7 @@ class AirPollutionViewModel(
 
 
             }.onFailure {
-                Timber.tag("AirPollutionViewModel").d("Something went wrong!")
+                Timber.e(it, "Something went wrong!")
                 mutableAirPollutionUIState.value = AirPollutionUIState.Error("Error occurred!")
             }.getOrThrow()
 

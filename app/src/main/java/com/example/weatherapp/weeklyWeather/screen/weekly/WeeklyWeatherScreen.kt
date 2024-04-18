@@ -1,7 +1,6 @@
 package com.example.weatherapp.weeklyWeather.screen.weekly
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,15 +16,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -125,7 +119,7 @@ fun WeeklyHeader(
         ) {
 
             Text(
-                text = city.plus(", "),
+                text = stringResource(R.string.comma, city),
                 fontFamily = FontFamily.Serif,
                 fontWeight = FontWeight.Bold,
                 fontSize = MaterialTheme.typography.headlineLarge.fontSize
@@ -191,13 +185,13 @@ fun WeeklyItem(
             text = stringResource(R.string.maxTemp),
             fontWeight = FontWeight.Bold
         )
-        Text(text = weeklyItem.maxTemp.toString().plus(stringResource(id = R.string.celsius)))
+        Text(text = stringResource(R.string.celsius, weeklyItem.maxTemp.toString()))
 
         Text(
             text = stringResource(R.string.minTemp),
             fontWeight = FontWeight.Bold
         )
-        Text(text = weeklyItem.minTemp.toString().plus(stringResource(id = R.string.celsius)))
+        Text(text = stringResource(id = R.string.celsius, weeklyItem.minTemp.toString()))
 
         Text(
             text = stringResource(R.string.sunset),
@@ -216,8 +210,7 @@ fun WeeklyItem(
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = weeklyItem.windSpeed.toString()
-                .plus(stringResource(id = R.string.windSpeedUnits))
+            text = stringResource(id = R.string.windSpeedUnits, weeklyItem.windSpeed.toString())
         )
     }
 

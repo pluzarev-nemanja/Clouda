@@ -49,7 +49,7 @@ class WeeklyWeatherViewModel(
                 if(weeklyWeatherList.isNotEmpty()) mutableWeeklyWeatherUIState.value = WeeklyWeatherUIState.Success(data = weeklyWeatherList)
                 else mutableWeeklyWeatherUIState.value = WeeklyWeatherUIState.Empty
             }.onFailure {
-                Timber.tag("WeeklyWeatherViewModel").d("Something went wrong!")
+                Timber.e(it, "Something went wrong!")
                 mutableWeeklyWeatherUIState.value = WeeklyWeatherUIState.Error("Error occurred")
             }.getOrThrow()
 
