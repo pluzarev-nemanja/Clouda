@@ -6,7 +6,7 @@ object Constants {
 
     const val ICON_SUFFIX = "@4x.png"
 
-    const val DATE_FORMAT_YEAR_TIME = "dd.MM.yyyy HH:MM:SS"
+    const val DATE_FORMAT_DAY_DATE_TIME = "EEEE/MM/dd HH:mm"
     const val DATE_FORMAT_ONLY_DAY = "EEEE"
     const val DATE_FORMAT_HOUR_MINUTES = "HH:mm"
 }

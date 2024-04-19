@@ -28,14 +28,13 @@ import coil.compose.AsyncImage
 import com.example.domain.model.WeeklyWeather
 import com.example.weatherapp.R
 import com.example.weatherapp.common.components.LoadingScreen
+import com.example.weatherapp.weeklyWeather.model.WeeklyWeatherUIModel
 import com.example.weatherapp.weeklyWeather.uiState.WeeklyWeatherUIState
 
 @Composable
 fun WeeklyWeatherScreen(
     paddingValues: PaddingValues,
-    weeklyWeatherUIState: WeeklyWeatherUIState,
-    formatDay: (Long) -> String,
-    formatHour: (Long) -> String
+    weeklyWeatherUIState: WeeklyWeatherUIState
 ) {
 
     when (weeklyWeatherUIState) {
@@ -46,9 +45,7 @@ fun WeeklyWeatherScreen(
 
         is WeeklyWeatherUIState.Success -> WeeklyScreen(
             paddingValues = paddingValues,
-            weeklyWeather = weeklyWeatherUIState.data,
-            formatDay = formatDay,
-            formatHour = formatHour
+            weeklyWeather = weeklyWeatherUIState.data
         )
 
         is WeeklyWeatherUIState.Error -> {}
@@ -60,9 +57,7 @@ fun WeeklyWeatherScreen(
 fun WeeklyScreen(
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues,
-    weeklyWeather: List<WeeklyWeather>,
-    formatDay: (Long) -> String,
-    formatHour: (Long) -> String
+    weeklyWeather: List<WeeklyWeatherUIModel>,
 ) {
 
     Column(
@@ -86,11 +81,9 @@ fun WeeklyScreen(
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
 
-            items(weeklyWeather) { weeklyItem: WeeklyWeather ->
+            items(weeklyWeather) { weeklyItem: WeeklyWeatherUIModel ->
                 WeeklyItem(
-                    weeklyItem = weeklyItem,
-                    formatDay = formatDay,
-                    formatHour = formatHour
+                    weeklyItem = weeklyItem
                 )
             }
         }
@@ -146,9 +139,7 @@ fun WeeklyHeader(
 
 @Composable
 fun WeeklyItem(
-    weeklyItem: WeeklyWeather,
-    formatDay: (Long) -> String,
-    formatHour: (Long) -> String
+    weeklyItem: WeeklyWeatherUIModel
 ) {
 
 
@@ -177,7 +168,7 @@ fun WeeklyItem(
         )
 
         Text(
-            text = formatDay.invoke(weeklyItem.time),
+            text = weeklyItem.day,
             fontWeight = FontWeight.Bold
         )
 
@@ -185,32 +176,32 @@ fun WeeklyItem(
             text = stringResource(R.string.maxTemp),
             fontWeight = FontWeight.Bold
         )
-        Text(text = stringResource(R.string.celsius, weeklyItem.maxTemp.toString()))
+        Text(text = stringResource(R.string.celsius, weeklyItem.maxTemp))
 
         Text(
             text = stringResource(R.string.minTemp),
             fontWeight = FontWeight.Bold
         )
-        Text(text = stringResource(id = R.string.celsius, weeklyItem.minTemp.toString()))
+        Text(text = stringResource(id = R.string.celsius, weeklyItem.minTemp))
 
         Text(
             text = stringResource(R.string.sunset),
             fontWeight = FontWeight.Bold
         )
-        Text(text = formatHour.invoke(weeklyItem.sunset))
+        Text(text = weeklyItem.sunset)
 
         Text(
             text = stringResource(R.string.sunrise),
             fontWeight = FontWeight.Bold
         )
-        Text(text = formatHour.invoke(weeklyItem.sunrise))
+        Text(text = weeklyItem.sunrise)
 
         Text(
             text = stringResource(R.string.windSpeed),
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = stringResource(id = R.string.windSpeedUnits, weeklyItem.windSpeed.toString())
+            text = stringResource(id = R.string.windSpeedUnits, weeklyItem.windSpeed)
         )
     }
 

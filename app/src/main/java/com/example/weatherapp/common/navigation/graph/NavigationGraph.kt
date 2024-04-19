@@ -1,7 +1,5 @@
 package com.example.weatherapp.common.navigation.graph
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -16,7 +14,6 @@ import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
 import com.example.weatherapp.weeklyWeather.screen.weekly.WeeklyWeatherScreen
 import com.example.weatherapp.weeklyWeather.uiState.WeeklyWeatherUIState
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NavigationGraph(
     navController: NavHostController,
@@ -25,10 +22,6 @@ fun NavigationGraph(
     airPollutionUIState: AirPollutionUIState,
     weeklyWeatherUIState: WeeklyWeatherUIState,
     onNavigate: () -> Unit,
-    formatDate: (Long) -> String,
-    formatDay: (Long) -> String,
-    formatHour: (Long) -> String
-
 ) {
 
 
@@ -45,16 +38,13 @@ fun NavigationGraph(
         composable(BottomNavItem.WeeklyWeather.route) {
             WeeklyWeatherScreen(
                 paddingValues = paddingValues,
-                weeklyWeatherUIState = weeklyWeatherUIState,
-                formatDay = formatDay,
-                formatHour = formatHour
+                weeklyWeatherUIState = weeklyWeatherUIState
             )
         }
         composable(BottomNavItem.AirPollution.route) {
             AirPollutionScreen(
                 paddingValues = paddingValues,
                 airPollutionUIState = airPollutionUIState,
-                formatDate = formatDate
             )
         }
 

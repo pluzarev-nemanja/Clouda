@@ -2,7 +2,10 @@ package com.example.weatherapp.dailyWeather.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.model.DailyWeather
 import com.example.domain.useCases.UseCases
+import com.example.weatherapp.dailyWeather.mapper.DailyWeatherToDailyWeatherUIModelMapper
+import com.example.weatherapp.dailyWeather.model.DailyWeatherUIModel
 import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +14,8 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class HomeViewModel(
-    private val useCases: UseCases
+    private val useCases: UseCases,
+    private val mapper: DailyWeatherToDailyWeatherUIModelMapper
 ) : ViewModel() {
 
     private val mutableDailyWeatherUIState: MutableStateFlow<DailyWeatherUIState> =
@@ -43,10 +47,14 @@ class HomeViewModel(
                     latitude = latitude,
                     longitude = longitude,
                 )
-            }.mapCatching { dailyWeather ->
-                if (dailyWeather != null) mutableDailyWeatherUIState.value =
-                    DailyWeatherUIState.Success(data = dailyWeather)
-                else mutableDailyWeatherUIState.value = DailyWeatherUIState.Empty
+            }.mapCatching { dailyWeather: DailyWeather ->
+
+                mapper.mappingObjects(dailyWeather)
+
+            }.mapCatching { dailyWeatherUIModel: DailyWeatherUIModel ->
+
+                mutableDailyWeatherUIState.value = DailyWeatherUIState.Success(data = dailyWeatherUIModel)
+
             }.onFailure {
 
                 Timber.e(it, "Something went wrong!")

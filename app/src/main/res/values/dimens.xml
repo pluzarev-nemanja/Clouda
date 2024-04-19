@@ -12,6 +12,7 @@
         <dimen name="mediumIconSize">46dp</dimen>
         <dimen name="LargeIconSize">200dp</dimen>
         <dimen name="progressBarSize">5dp</dimen>
+        <dimen name="itemPadding">100dp</dimen>
     <!-- end region paddings values -->
 
     <!-- region text values-->

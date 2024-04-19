@@ -1,6 +1,6 @@
 package com.example.weatherapp.airPollution.uiState
 
-import com.example.domain.model.PastAirPollution
+import com.example.weatherapp.airPollution.model.AirPollutionUIModel
 
 sealed class AirPollutionUIState {
 
@@ -8,7 +8,7 @@ sealed class AirPollutionUIState {
 
     data object Empty : AirPollutionUIState()
 
-    data class Success(val data : List<PastAirPollution>): AirPollutionUIState()
+    data class Success(val data: List<AirPollutionUIModel>) : AirPollutionUIState()
 
-    data class Error(val message : String?) : AirPollutionUIState()
+    data class Error(val message: String?) : AirPollutionUIState()
 }
