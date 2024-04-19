@@ -6,13 +6,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -25,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.weatherapp.R
@@ -93,13 +97,15 @@ fun Header(
         Text(
             text = title,
             fontSize = MaterialTheme.typography.headlineLarge.fontSize,
-            fontWeight = FontWeight.SemiBold
-        )
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = FontFamily.Serif
+            )
         Text(
             text = smallText,
             fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-            fontWeight = FontWeight.Light
-        )
+            fontWeight = FontWeight.Light,
+            fontFamily = FontFamily.Serif
+            )
 
     }
 
@@ -134,44 +140,51 @@ fun AirPollutionItem(
 ) {
 
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = dimensionResource(id = R.dimen.smallPadding)),
-        verticalArrangement = Arrangement.SpaceAround,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Card(
+
     ) {
-        Text(
-            text = airPollution.date,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Serif
-        )
-        Column {
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                PollutionDataItem(bigText = "NO", data = airPollution.nitrogenMonoxide)
-                PollutionDataItem(bigText = "NO2", data = airPollution.nitrogenDioxide)
-                PollutionDataItem(bigText = "NH3", data = airPollution.ammonia)
-                PollutionDataItem(bigText = "O3", data = airPollution.ozone)
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = dimensionResource(id = R.dimen.smallPadding)),
+            verticalArrangement = Arrangement.SpaceAround,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = airPollution.date,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Serif,
+                fontSize = MaterialTheme.typography.headlineSmall.fontSize
+            )
+            Column {
 
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                PollutionDataItem(bigText = "NO", data = airPollution.nitrogenMonoxide)
-                PollutionDataItem(bigText = "NO2", data = airPollution.nitrogenDioxide)
-                PollutionDataItem(bigText = "NH3", data = airPollution.ammonia)
-                PollutionDataItem(bigText = "O3", data = airPollution.ozone)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    PollutionDataItem(bigText = "NO", data = airPollution.nitrogenMonoxide)
+                    PollutionDataItem(bigText = "NO2", data = airPollution.nitrogenDioxide)
+                    PollutionDataItem(bigText = "NH3", data = airPollution.ammonia)
+                    PollutionDataItem(bigText = "O3", data = airPollution.ozone)
 
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    PollutionDataItem(bigText = "SO2", data = airPollution.sulphur)
+                    PollutionDataItem(bigText = "CO", data = airPollution.carbonMonoxide)
+                    PollutionDataItem(bigText = "PM10", data = airPollution.pm10)
+                    PollutionDataItem(bigText = "PM25", data = airPollution.pm25)
+
+                }
             }
         }
     }
+    Spacer(modifier = Modifier.height(8.dp))
 
 }
 
