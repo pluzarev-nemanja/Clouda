@@ -18,10 +18,18 @@ val viewModelModule = module {
             get()
         )
     }
-    viewModel<AirPollutionViewModel> {
-        AirPollutionViewModel(get(), get())
+    viewModel<AirPollutionViewModel> { (latLong: LatLong) ->
+        AirPollutionViewModel(
+            latLong,
+            get(),
+            get()
+        )
     }
-    viewModel<WeeklyWeatherViewModel> {
-        WeeklyWeatherViewModel(get(), get())
+    viewModel<WeeklyWeatherViewModel> {(latLong: LatLong) ->
+        WeeklyWeatherViewModel(
+            latLong,
+            get(),
+            get()
+        )
     }
 }

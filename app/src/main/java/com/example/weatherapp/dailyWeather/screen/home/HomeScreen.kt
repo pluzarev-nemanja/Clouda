@@ -21,11 +21,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -41,9 +36,6 @@ import com.example.weatherapp.R
 import com.example.weatherapp.common.components.LoadingScreen
 import com.example.weatherapp.dailyWeather.model.DailyWeatherUIModel
 import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 
 @Composable
 fun HomeScreen(
@@ -94,20 +86,26 @@ fun CurrentWeatherScreen(
                     )
                 )
             )
-            .padding(top = paddingValues.calculateTopPadding()),
+            .padding(
+                top = paddingValues.calculateTopPadding(),
+                bottom = paddingValues.calculateBottomPadding()
+            ),
     ) {
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(dimensionResource(id = R.dimen.mediumPadding)),
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
             AsyncImage(
                 model = dailyWeather.icon,
                 contentDescription = dailyWeather.detailDescription,
-                modifier = Modifier.size(dimensionResource(id = R.dimen.LargeIconSize))
+                modifier = Modifier
+                    .size(dimensionResource(id = R.dimen.LargeIconSize))
+                    .weight(1f)
             )
             Text(
                 text = dailyWeather.currentTime,
@@ -118,7 +116,9 @@ fun CurrentWeatherScreen(
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.largePadding)))
 
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(2f),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -128,7 +128,7 @@ fun CurrentWeatherScreen(
                         dailyWeather.currentTemp
                     ),
                     fontWeight = FontWeight.Bold,
-                    fontSize = dimensionResource(id = R.dimen.extraLargeFontSize).value.sp
+                     fontSize = dimensionResource(id = R.dimen.extraLargeFontSize).value.sp
                 )
                 Text(
                     text = dailyWeather.location,
@@ -141,16 +141,16 @@ fun CurrentWeatherScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(dimensionResource(id = R.dimen.smallPadding)),
+                    .weight(1f),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 WeatherDetailsItem(
                     icon = R.drawable.ic_sun,
-                    text = stringResource(
-                        R.string.feelsLike,
-                        dailyWeather.feelsLikeTemp
-                    )
+                    bigText = stringResource(
+                        R.string.feelsLike
+                    ),
+                    smallText = stringResource(id = R.string.celsius, dailyWeather.feelsLikeTemp)
                 )
                 Divider(
                     color = MaterialTheme.colorScheme.inversePrimary, modifier = Modifier
@@ -166,11 +166,14 @@ fun CurrentWeatherScreen(
                         painter = painterResource(id = R.drawable.ic_pollution),
                         contentDescription = stringResource(R.string.airPollution),
 
-                        modifier = Modifier.size(dimensionResource(id = R.dimen.mediumIconSize))
+                        modifier = Modifier.size(dimensionResource(id = R.dimen.iconSize))
                     )
-                    Button(onClick = {
-                        onNavigate.invoke()
-                    }) {
+                    Button(
+                        onClick = {
+                            onNavigate.invoke()
+                        },
+                        modifier = Modifier.padding(dimensionResource(id = R.dimen.smallPadding))
+                    ) {
                         Text(text = stringResource(R.string.checkAirPollution))
                     }
                 }
@@ -183,7 +186,8 @@ fun CurrentWeatherScreen(
                 )
                 WeatherDetailsItem(
                     icon = R.drawable.ic_wind,
-                    text = dailyWeather.detailDescription
+                    bigText = dailyWeather.detailDescription,
+                    smallText = ""
                 )
             }
 
@@ -198,19 +202,22 @@ fun CurrentWeatherScreen(
 @Composable
 fun WeatherDetailsItem(
     @DrawableRes icon: Int,
-    text: String
+    bigText: String,
+    smallText : String
 ) {
 
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier.padding(dimensionResource(id = R.dimen.smallPadding)),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Icon(
             painter = painterResource(id = icon),
-            contentDescription = text,
+            contentDescription = bigText,
 
-            modifier = Modifier.size(dimensionResource(id = R.dimen.mediumIconSize))
+            modifier = Modifier.size(dimensionResource(id = R.dimen.iconSize))
         )
-        Text(text = text)
+        Text(text = bigText)
+        Text(text = smallText)
     }
 
 

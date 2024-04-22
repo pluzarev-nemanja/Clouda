@@ -16,7 +16,7 @@
     <!-- end region paddings values -->
 
     <!-- region text values-->
-        <dimen name="extraLargeFontSize">110sp</dimen>
+        <dimen name="extraLargeFontSize">70sp</dimen>
         <dimen name="mediumFontSize">40sp</dimen>
     <!-- end region paddings values-->
 

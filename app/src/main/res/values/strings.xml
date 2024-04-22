@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Weather App</string>
     <string name="celsius">%s °C</string>
-    <string name="feelsLike">Feels like: %s °C</string>
+    <string name="feelsLike">Feels like:</string>
     <string name="airPollution">Air pollution</string>
-    <string name="checkAirPollution">Check air pollution</string>
+    <string name="checkAirPollution">Air pollution</string>
     <string name="pastWeek">past week</string>
     <string name="co">CO: %1$s</string>
     <string name="nh3">NH3: %1$s</string>

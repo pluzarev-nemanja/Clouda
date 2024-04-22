@@ -30,7 +30,9 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -39,8 +41,6 @@ import timber.log.Timber
 class MainActivity : ComponentActivity() {
 
 
-    private val airPollutionViewModel by viewModel<AirPollutionViewModel>()
-    private val weeklyWeatherViewModel by viewModel<WeeklyWeatherViewModel>()
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
     private val cancellationTokenSource = CancellationTokenSource()
 
@@ -51,13 +51,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             WeatherAppTheme {
 
+                var homeViewModel by remember { mutableStateOf<HomeViewModel?>(null) }
+                var airPollutionViewModel by remember { mutableStateOf<AirPollutionViewModel?>(null) }
+                var weeklyWeatherViewModel by remember { mutableStateOf<WeeklyWeatherViewModel?>(null) }
+
                 var lat by remember {
                     mutableDoubleStateOf(0.0)
                 }
                 var long by remember {
                     mutableDoubleStateOf(0.0)
                 }
-                var homeViewModel by remember { mutableStateOf<HomeViewModel?>(null) }
 
 
                 Surface(
@@ -72,29 +75,35 @@ class MainActivity : ComponentActivity() {
 
                         LaunchedEffect(key1 = true) {
 
-                            fusedLocationProvider.getCurrentLocation(
-                                Priority.PRIORITY_BALANCED_POWER_ACCURACY,
-                                cancellationTokenSource.token
-                            ).addOnSuccessListener { location: Location ->
-                                lat = location.latitude
-                                long = location.longitude
-                            }.addOnFailureListener { exception: Exception ->
-                                Timber.d(exception)
-                            }.await()
+                            withContext(Dispatchers.IO){
+                                fusedLocationProvider.getCurrentLocation(
+                                    Priority.PRIORITY_BALANCED_POWER_ACCURACY,
+                                    cancellationTokenSource.token
+                                ).addOnSuccessListener { location: Location? ->
+                                    if(location != null){
+                                        lat = location.latitude
+                                        long = location.longitude
+                                    }
+                                }.addOnFailureListener { exception: Exception ->
+                                    Timber.d(exception)
+                                }.await()
+                            }
 
                             homeViewModel = getViewModel(parameters = { parametersOf(LatLong(lat, long)) })
+                            airPollutionViewModel = getViewModel(parameters = { parametersOf(LatLong(lat, long)) })
+                            weeklyWeatherViewModel = getViewModel(parameters = { parametersOf(LatLong(lat, long)) })
 
                         }
 
-                        if (homeViewModel != null) {
+                        if (homeViewModel != null && airPollutionViewModel != null && weeklyWeatherViewModel != null) {
 
 
                             val dailyWeatherUIState =
                                 homeViewModel!!.dailyWeatherUIState.collectAsStateWithLifecycle().value
                             val airPollutionUIState =
-                                airPollutionViewModel.airPollutionUIState.collectAsStateWithLifecycle().value
+                                airPollutionViewModel!!.airPollutionUIState.collectAsStateWithLifecycle().value
                             val weeklyWeatherUIState =
-                                weeklyWeatherViewModel.weeklyWeatherUIState.collectAsStateWithLifecycle().value
+                                weeklyWeatherViewModel!!.weeklyWeatherUIState.collectAsStateWithLifecycle().value
 
 
                             MainScreen(

@@ -26,9 +26,7 @@ class HomeViewModel(
         mutableDailyWeatherUIState.asStateFlow()
 
 
-    init {
-        getCurrentWeather()
-    }
+    init { getCurrentWeather() }
 
     private fun getCurrentWeather() {
         viewModelScope.launch {
