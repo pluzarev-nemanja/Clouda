@@ -23,4 +23,8 @@
     <string name="windSpeedUnits">%s m/s</string>
     <string name="comma">"%s, "</string>
     <string name="cloudIcon">cloud icon</string>
+    <string name="givePermission">Give Permission</string>
+    <string name="permissionRequest">Permission Request</string>
+    <string name="rationalMessage">To use this app\'s functionalities, you need to give us the location permission.</string>
+    <string name="deniedMessage">Give this app a location permission to proceed. If it doesn\'t work, then you\'ll have to do it manually from the settings.</string>
 </resources>
