@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.viewinterop.AndroidView
@@ -47,7 +48,7 @@ fun AboutScreen(
 
             Text(
                 modifier = Modifier.weight(1f),
-                text = "Created by",
+                text = stringResource(R.string.createdBy),
                 fontWeight = FontWeight.Light,
                 fontFamily = FontFamily.Serif,
                 fontSize = MaterialTheme.typography.headlineSmall.fontSize
@@ -55,7 +56,7 @@ fun AboutScreen(
             )
             Text(
                 modifier = Modifier.weight(1f),
-                text = "Nemanja Plužarev",
+                text = stringResource(R.string.name),
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Serif,
                 fontSize = MaterialTheme.typography.headlineMedium.fontSize
