@@ -13,17 +13,20 @@ val viewModelModule = module {
     viewModel<HomeViewModel> {
         HomeViewModel(
             get(),
+            get(),
             get()
         )
     }
     viewModel<AirPollutionViewModel> {
         AirPollutionViewModel(
             get(),
+            get(),
             get()
         )
     }
     viewModel<WeeklyWeatherViewModel> {
         WeeklyWeatherViewModel(
+            get(),
             get(),
             get()
         )

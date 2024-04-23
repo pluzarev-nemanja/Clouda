@@ -17,7 +17,8 @@ import timber.log.Timber
 
 class HomeViewModel(
     private val useCases: UseCases,
-    private val mapper: DailyWeatherToDailyWeatherUIModelMapper
+    private val mapper: DailyWeatherToDailyWeatherUIModelMapper,
+    private val locationManager: LocationManager
 ) : ViewModel() {
 
     private val mutableDailyWeatherUIState: MutableStateFlow<DailyWeatherUIState> =
@@ -27,18 +28,15 @@ class HomeViewModel(
 
 
 
-     fun getCurrentWeather(
-         latitude : Double?,
-         longitude: Double?
-     ) {
+     fun getCurrentWeather() {
         viewModelScope.launch {
 
             mutableDailyWeatherUIState.value = DailyWeatherUIState.Loading
 
             useCases.runCatching {
                 getCurrentWeather(
-                    latitude = latitude ?: 0.0,
-                    longitude = longitude ?: 0.0
+                    latitude = locationManager.getLocation()?.latitude ?: 0.0,
+                    longitude = locationManager.getLocation()?.longitude ?: 0.0
                 )
             }.mapCatching { dailyWeather: DailyWeather ->
 

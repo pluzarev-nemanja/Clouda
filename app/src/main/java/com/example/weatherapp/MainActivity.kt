@@ -33,7 +33,6 @@ class MainActivity : ComponentActivity() {
     private val homeViewModel: HomeViewModel by viewModel()
     private val airPollutionViewModel: AirPollutionViewModel by viewModel()
     private val weeklyWeatherViewModel: WeeklyWeatherViewModel by viewModel()
-    private val locationManager : LocationManager by inject()
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("MissingPermission")
@@ -51,23 +50,11 @@ class MainActivity : ComponentActivity() {
 
                     SinglePermissionDialog(permission = Manifest.permission.ACCESS_COARSE_LOCATION) {
 
-                        LaunchedEffect(key1 = true) {
 
-                            val location = locationManager.getLocation()
+                            homeViewModel.getCurrentWeather()
+                            airPollutionViewModel.getPastAirPollution()
+                            weeklyWeatherViewModel.getWeeklyWeather()
 
-                            homeViewModel.getCurrentWeather(
-                                latitude = location?.latitude,
-                                longitude = location?.longitude
-                            )
-                            airPollutionViewModel.getPastAirPollution(
-                                latitude = location?.latitude,
-                                longitude = location?.longitude
-                            )
-                            weeklyWeatherViewModel.getWeeklyWeather(
-                                latitude = location?.latitude,
-                                longitude = location?.longitude
-                            )
-                        }
 
                         val dailyWeatherUIState =
                             homeViewModel.dailyWeatherUIState.collectAsStateWithLifecycle().value

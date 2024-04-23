@@ -9,6 +9,7 @@ import com.example.domain.useCases.UseCases
 import com.example.weatherapp.airPollution.mapper.PastAirPollutionToAirPollutionUIModelMapper
 import com.example.weatherapp.airPollution.model.AirPollutionUIModel
 import com.example.weatherapp.airPollution.uiState.AirPollutionUIState
+import com.example.weatherapp.common.location.LocationManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,7 +21,8 @@ import java.time.ZoneOffset
 @RequiresApi(Build.VERSION_CODES.O)
 class AirPollutionViewModel(
     private val useCases: UseCases,
-    private val mapper: PastAirPollutionToAirPollutionUIModelMapper
+    private val mapper: PastAirPollutionToAirPollutionUIModelMapper,
+    private val locationManager: LocationManager
 ) : ViewModel() {
 
     private val mutableAirPollutionUIState: MutableStateFlow<AirPollutionUIState> =
@@ -38,10 +40,7 @@ class AirPollutionViewModel(
         .toEpochSecond(ZoneOffset.ofHours(3))
 
 
-    fun getPastAirPollution(
-        latitude: Double?,
-        longitude: Double?
-    ) {
+    fun getPastAirPollution() {
 
         viewModelScope.launch {
 
@@ -49,8 +48,8 @@ class AirPollutionViewModel(
             mutableAirPollutionUIState.value = AirPollutionUIState.Loading
             useCases.runCatching {
                 getWeeklyAirPollution(
-                    latitude = latitude ?: 0.0,
-                    longitude = longitude ?: 0.0,
+                    latitude = locationManager.getLocation()?.latitude ?: 0.0,
+                    longitude = locationManager.getLocation()?.longitude ?: 0.0,
                     startingDay = pastDays,
                     endingDay = today
                 )

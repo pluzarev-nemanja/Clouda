@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.WeeklyWeather
 import com.example.domain.useCases.UseCases
+import com.example.weatherapp.common.location.LocationManager
 import com.example.weatherapp.weeklyWeather.mapper.WeeklyWeatherToWeeklyWeatherUIModelMapper
 import com.example.weatherapp.weeklyWeather.model.WeeklyWeatherUIModel
 import com.example.weatherapp.weeklyWeather.uiState.WeeklyWeatherUIState
@@ -15,7 +16,8 @@ import timber.log.Timber
 
 class WeeklyWeatherViewModel(
     private val useCases: UseCases,
-    private val mapper: WeeklyWeatherToWeeklyWeatherUIModelMapper
+    private val mapper: WeeklyWeatherToWeeklyWeatherUIModelMapper,
+    private val locationManager: LocationManager
 ) : ViewModel() {
 
 
@@ -26,18 +28,15 @@ class WeeklyWeatherViewModel(
         mutableWeeklyWeatherUIState.asStateFlow()
 
 
-    fun getWeeklyWeather(
-        latitude: Double?,
-        longitude: Double?
-    ) {
+    fun getWeeklyWeather() {
         viewModelScope.launch {
 
             mutableWeeklyWeatherUIState.value = WeeklyWeatherUIState.Loading
 
             useCases.runCatching {
                 getWeeklyWeather(
-                    latitude = latitude ?: 0.0,
-                    longitude = longitude ?: 0.0
+                    latitude = locationManager.getLocation()?.latitude ?: 0.0,
+                    longitude = locationManager.getLocation()?.longitude ?: 0.0
                 )
             }.mapCatching { weeklyWeatherList: List<WeeklyWeather> ->
                 mapper.mappingObjects(weeklyWeatherList)
