@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Weather App</string>
     <string name="celsius">%s °C</string>
-    <string name="feelsLike">Feels like: %s °C</string>
+    <string name="feelsLike">Feels like:</string>
     <string name="airPollution">Air pollution</string>
-    <string name="checkAirPollution">Check air pollution</string>
+    <string name="checkAirPollution">Air pollution</string>
     <string name="pastWeek">past week</string>
     <string name="co">CO: %1$s</string>
     <string name="nh3">NH3: %1$s</string>
@@ -23,4 +23,8 @@
     <string name="windSpeedUnits">%s m/s</string>
     <string name="comma">"%s, "</string>
     <string name="cloudIcon">cloud icon</string>
+    <string name="givePermission">Give Permission</string>
+    <string name="permissionRequest">Permission Request</string>
+    <string name="rationalMessage">To use this app\'s functionalities, you need to give us the location permission.</string>
+    <string name="deniedMessage">Give this app a location permission to proceed. If it doesn\'t work, then you\'ll have to do it manually from the settings.</string>
 </resources>

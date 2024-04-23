@@ -140,9 +140,7 @@ fun AirPollutionItem(
 ) {
 
 
-    Card(
-
-    ) {
+    Card {
 
         Column(
             modifier = Modifier
