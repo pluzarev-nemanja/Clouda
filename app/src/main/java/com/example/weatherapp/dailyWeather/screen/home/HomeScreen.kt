@@ -55,7 +55,11 @@ fun HomeScreen(
         )
 
         is DailyWeatherUIState.Error -> {
-
+            when (dailyWeatherUIState) {
+                is DailyWeatherUIState.Error.Unknown -> ErrorScreen(message = dailyWeatherUIState.message)
+                is DailyWeatherUIState.Error.Internet -> ErrorScreen(message = dailyWeatherUIState.message)
+                is DailyWeatherUIState.Error.Server -> ErrorScreen(message = dailyWeatherUIState.message)
+            }
         }
 
         DailyWeatherUIState.Empty -> {
@@ -64,6 +68,20 @@ fun HomeScreen(
 
     }
 
+}
+
+@Composable
+fun ErrorScreen(
+    message: String?
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.primaryContainer),
+        contentAlignment = Alignment.Center
+    ){
+        Text(text = message ?: "")
+    }
 }
 
 @SuppressLint("NewApi")
@@ -128,7 +146,7 @@ fun CurrentWeatherScreen(
                         dailyWeather.currentTemp
                     ),
                     fontWeight = FontWeight.Bold,
-                     fontSize = dimensionResource(id = R.dimen.extraLargeFontSize).value.sp
+                    fontSize = dimensionResource(id = R.dimen.extraLargeFontSize).value.sp
                 )
                 Text(
                     text = dailyWeather.location,
@@ -203,7 +221,7 @@ fun CurrentWeatherScreen(
 fun WeatherDetailsItem(
     @DrawableRes icon: Int,
     bigText: String,
-    smallText : String
+    smallText: String
 ) {
 
     Column(
