@@ -78,6 +78,9 @@ dependencies {
     implementation (libs.timber)
     implementation (libs.accompanist.permissions)
 
+    implementation (libs.androidx.core.splashscreen)
+
+
 
     implementation(project(":domain"))
 
