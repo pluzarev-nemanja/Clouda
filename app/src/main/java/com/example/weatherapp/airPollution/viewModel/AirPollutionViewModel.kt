@@ -12,6 +12,7 @@ import com.example.weatherapp.airPollution.mapper.PastAirPollutionToAirPollution
 import com.example.weatherapp.airPollution.model.AirPollutionUIModel
 import com.example.weatherapp.airPollution.uiState.AirPollutionUIState
 import com.example.weatherapp.common.location.LocationManager
+import com.example.weatherapp.weeklyWeather.uiState.WeeklyWeatherUIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -67,7 +68,7 @@ class AirPollutionViewModel(
                     AirPollutionUIState.Success(data = airPollutionUIModelList)
 
             }.onFailure {
-                mutableAirPollutionUIState.value = errorMapper.mappingObjects(it as ErrorResponse)
+                mutableAirPollutionUIState.value = it.convertError()
                 Timber.e(it, "ERROR IN AirPollution :  ${mutableAirPollutionUIState.value}")
             }
 
@@ -75,5 +76,9 @@ class AirPollutionViewModel(
         }
     }
 
-
+    private fun Throwable.convertError(): AirPollutionUIState.Error = runCatching {
+        errorMapper
+    }.mapCatching {
+        errorMapper.mappingObjects(this as ErrorResponse)
+    } .getOrThrow()
 }

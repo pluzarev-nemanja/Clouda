@@ -6,6 +6,7 @@ import com.example.domain.model.ErrorResponse
 import com.example.domain.model.WeeklyWeather
 import com.example.domain.useCases.UseCases
 import com.example.weatherapp.common.location.LocationManager
+import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
 import com.example.weatherapp.weeklyWeather.mapper.ErrorResponseToWeeklyWeatherUIStateErrorMapper
 import com.example.weatherapp.weeklyWeather.mapper.WeeklyWeatherToWeeklyWeatherUIModelMapper
 import com.example.weatherapp.weeklyWeather.model.WeeklyWeatherUIModel
@@ -49,12 +50,18 @@ class WeeklyWeatherViewModel(
                     WeeklyWeatherUIState.Success(data = weeklyWeatherUIModelList)
 
             }.onFailure {
-                mutableWeeklyWeatherUIState.value = errorMapper.mappingObjects(it as ErrorResponse)
+                mutableWeeklyWeatherUIState.value = it.convertError()
                 Timber.e(it, "ERROR IN WeeklyWeather :  ${mutableWeeklyWeatherUIState.value}")
 
             }
 
         }
     }
+
+    private fun Throwable.convertError(): WeeklyWeatherUIState.Error = runCatching {
+        errorMapper
+    }.mapCatching {
+        errorMapper.mappingObjects(this as ErrorResponse)
+    } .getOrThrow()
 }
 

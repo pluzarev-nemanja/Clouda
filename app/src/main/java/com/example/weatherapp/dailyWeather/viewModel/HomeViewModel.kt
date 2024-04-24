@@ -58,6 +58,10 @@ class HomeViewModel(
 
     }
 
-    private fun Throwable.convertError(): DailyWeatherUIState.Error = errorMapper.mappingObjects(this as ErrorResponse)
+    private fun Throwable.convertError(): DailyWeatherUIState.Error = runCatching {
+      errorMapper
+    }.mapCatching {
+        errorMapper.mappingObjects(this as ErrorResponse)
+    } .getOrThrow()
 
 }
