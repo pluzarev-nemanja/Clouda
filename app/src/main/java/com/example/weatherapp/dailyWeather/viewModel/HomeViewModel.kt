@@ -53,7 +53,7 @@ class HomeViewModel(
             }.onFailure{
 
                 mutableDailyWeatherUIState.value = errorMapper.mappingObjects(it as ErrorResponse)
-                Timber.e(it, "Something went wrong! ${mutableDailyWeatherUIState.value}")
+                Timber.e(it, "ERROR IN VM :  ${mutableDailyWeatherUIState.value}")
             }
         }
 

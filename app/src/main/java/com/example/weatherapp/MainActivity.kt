@@ -51,8 +51,8 @@ class MainActivity : ComponentActivity() {
 
                         LaunchedEffect(key1 = true) {
                             homeViewModel.getCurrentWeather()
-                           // airPollutionViewModel.getPastAirPollution()
-                           // weeklyWeatherViewModel.getWeeklyWeather()
+                            //airPollutionViewModel.getPastAirPollution()
+                            weeklyWeatherViewModel.getWeeklyWeather()
                         }
 
 

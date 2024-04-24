@@ -29,6 +29,7 @@ val viewModelModule = module {
         WeeklyWeatherViewModel(
             get(),
             get(),
+            get(),
             get()
         )
     }

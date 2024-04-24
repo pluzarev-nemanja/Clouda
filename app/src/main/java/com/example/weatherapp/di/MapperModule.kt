@@ -5,6 +5,7 @@ import com.example.weatherapp.common.location.LocationManager
 import com.example.weatherapp.common.location.LocationManagerImpl
 import com.example.weatherapp.dailyWeather.mapper.DailyWeatherToDailyWeatherUIModelMapper
 import com.example.weatherapp.dailyWeather.mapper.ErrorResponseToDailyWeatherUIStateErrorMapper
+import com.example.weatherapp.weeklyWeather.mapper.ErrorResponseToWeeklyWeatherUIStateErrorMapper
 import com.example.weatherapp.weeklyWeather.mapper.WeeklyWeatherToWeeklyWeatherUIModelMapper
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -15,5 +16,6 @@ val uiMapperModule = module {
     factory { WeeklyWeatherToWeeklyWeatherUIModelMapper() }
     factory { PastAirPollutionToAirPollutionUIModelMapper() }
     factory { ErrorResponseToDailyWeatherUIStateErrorMapper() }
+    factory { ErrorResponseToWeeklyWeatherUIStateErrorMapper() }
 
 }

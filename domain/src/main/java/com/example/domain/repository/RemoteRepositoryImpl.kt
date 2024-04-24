@@ -28,21 +28,29 @@ class RemoteRepositoryImpl(
     override suspend fun getWeeklyWeatherData(
         latitude: Double,
         longitude: Double,
-    ): WeeklyWeatherResponse = api.getWeeklyWeatherData(
-        latitude = latitude,
-        longitude = longitude,
-    )
+    ): WeeklyWeatherResponse = api.runCatching {
+        getWeeklyWeatherData(
+            latitude = latitude,
+            longitude = longitude,
+        )
+    }.getOrElse {
+        throw mapper.mappingObjects(it)
+    }
 
     override suspend fun getWeeklyAirPollutionData(
         latitude: Double,
         longitude: Double,
         startingDay: Long,
         endingDay: Long,
-    ): WeeklyAirPollutionsResponse = api.getWeeklyAirPollutionData(
-        latitude = latitude,
-        longitude = longitude,
-        startingDay = startingDay,
-        endingDay = endingDay,
-    )
+    ): WeeklyAirPollutionsResponse = api.runCatching {
+        getWeeklyAirPollutionData(
+            latitude = latitude,
+            longitude = longitude,
+            startingDay = startingDay,
+            endingDay = endingDay,
+        )
+    }.getOrElse {
+        throw mapper.mappingObjects(it)
+    }
 
 }

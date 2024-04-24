@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.weatherapp.R
+import com.example.weatherapp.common.components.ErrorScreen
 import com.example.weatherapp.common.components.LoadingScreen
 import com.example.weatherapp.dailyWeather.model.DailyWeatherUIModel
 import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
@@ -68,20 +69,6 @@ fun HomeScreen(
 
     }
 
-}
-
-@Composable
-fun ErrorScreen(
-    message: String?
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.primaryContainer),
-        contentAlignment = Alignment.Center
-    ){
-        Text(text = message ?: "")
-    }
 }
 
 @SuppressLint("NewApi")
