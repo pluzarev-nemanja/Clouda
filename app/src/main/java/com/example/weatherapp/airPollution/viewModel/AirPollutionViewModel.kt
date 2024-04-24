@@ -4,8 +4,10 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.model.ErrorResponse
 import com.example.domain.model.PastAirPollution
 import com.example.domain.useCases.UseCases
+import com.example.weatherapp.airPollution.mapper.ErrorResponseToAirPollutionUIStateErrorMapper
 import com.example.weatherapp.airPollution.mapper.PastAirPollutionToAirPollutionUIModelMapper
 import com.example.weatherapp.airPollution.model.AirPollutionUIModel
 import com.example.weatherapp.airPollution.uiState.AirPollutionUIState
@@ -22,6 +24,7 @@ import java.time.ZoneOffset
 class AirPollutionViewModel(
     private val useCases: UseCases,
     private val mapper: PastAirPollutionToAirPollutionUIModelMapper,
+    private val errorMapper: ErrorResponseToAirPollutionUIStateErrorMapper,
     private val locationManager: LocationManager
 ) : ViewModel() {
 
@@ -64,9 +67,9 @@ class AirPollutionViewModel(
                     AirPollutionUIState.Success(data = airPollutionUIModelList)
 
             }.onFailure {
-                Timber.e(it, "Something went wrong!")
-                mutableAirPollutionUIState.value = AirPollutionUIState.Error("Error occurred!")
-            }.getOrThrow()
+                mutableAirPollutionUIState.value = errorMapper.mappingObjects(it as ErrorResponse)
+                Timber.e(it, "ERROR IN AirPollution :  ${mutableAirPollutionUIState.value}")
+            }
 
 
         }

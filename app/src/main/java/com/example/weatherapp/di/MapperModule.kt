@@ -1,5 +1,6 @@
 package com.example.weatherapp.di
 
+import com.example.weatherapp.airPollution.mapper.ErrorResponseToAirPollutionUIStateErrorMapper
 import com.example.weatherapp.airPollution.mapper.PastAirPollutionToAirPollutionUIModelMapper
 import com.example.weatherapp.common.location.LocationManager
 import com.example.weatherapp.common.location.LocationManagerImpl
@@ -17,5 +18,6 @@ val uiMapperModule = module {
     factory { PastAirPollutionToAirPollutionUIModelMapper() }
     factory { ErrorResponseToDailyWeatherUIStateErrorMapper() }
     factory { ErrorResponseToWeeklyWeatherUIStateErrorMapper() }
+    factory { ErrorResponseToAirPollutionUIStateErrorMapper() }
 
 }

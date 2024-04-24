@@ -50,7 +50,7 @@ class WeeklyWeatherViewModel(
 
             }.onFailure {
                 mutableWeeklyWeatherUIState.value = errorMapper.mappingObjects(it as ErrorResponse)
-                Timber.e(it, "ERROR IN VM :  ${mutableWeeklyWeatherUIState.value}")
+                Timber.e(it, "ERROR IN WeeklyWeather :  ${mutableWeeklyWeatherUIState.value}")
 
             }
 

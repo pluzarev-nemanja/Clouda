@@ -22,6 +22,7 @@ val viewModelModule = module {
         AirPollutionViewModel(
             get(),
             get(),
+            get(),
             get()
         )
     }
