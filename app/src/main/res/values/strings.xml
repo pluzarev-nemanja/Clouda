@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Weather App</string>
+    <string name="app_name">Clouda</string>
     <string name="celsius">%s °C</string>
     <string name="feelsLike">Feels like:</string>
     <string name="airPollution">Air pollution</string>
@@ -30,4 +30,6 @@
     <string name="createdBy">Created by</string>
     <string name="name">Nemanja Plužarev</string>
     <string name="errorIcon">error icon</string>
+    <string name="unknownError">Unknown error</string>
+    <string name="refresh">Refresh</string>
 </resources>

@@ -41,6 +41,7 @@ import com.example.weatherapp.common.components.LoadingScreen
 fun AirPollutionScreen(
     paddingValues: PaddingValues,
     airPollutionUIState: AirPollutionUIState,
+    onRetryClick : () -> Unit
 ) {
 
 
@@ -50,7 +51,10 @@ fun AirPollutionScreen(
         AirPollutionUIState.Empty -> {}
         is AirPollutionUIState.Error -> {
             when(airPollutionUIState){
-                is AirPollutionUIState.Error.Internet -> ErrorScreen(message = airPollutionUIState.message)
+                is AirPollutionUIState.Error.Internet -> ErrorScreen(
+                    message = airPollutionUIState.message,
+                    onRetryClick = onRetryClick
+                )
                 is AirPollutionUIState.Error.Server -> ErrorScreen(message = airPollutionUIState.message)
                 is AirPollutionUIState.Error.Unknown -> ErrorScreen(message = airPollutionUIState.message)
             }

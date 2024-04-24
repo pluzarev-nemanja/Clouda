@@ -35,7 +35,8 @@ import com.example.weatherapp.weeklyWeather.uiState.WeeklyWeatherUIState
 @Composable
 fun WeeklyWeatherScreen(
     paddingValues: PaddingValues,
-    weeklyWeatherUIState: WeeklyWeatherUIState
+    weeklyWeatherUIState: WeeklyWeatherUIState,
+    onRetryClick : () -> Unit
 ) {
 
     when (weeklyWeatherUIState) {
@@ -51,7 +52,10 @@ fun WeeklyWeatherScreen(
 
         is WeeklyWeatherUIState.Error -> {
             when(weeklyWeatherUIState){
-                is WeeklyWeatherUIState.Error.Internet -> ErrorScreen(message = weeklyWeatherUIState.message)
+                is WeeklyWeatherUIState.Error.Internet -> ErrorScreen(
+                    message = weeklyWeatherUIState.message,
+                    onRetryClick = onRetryClick
+                )
                 is WeeklyWeatherUIState.Error.Server -> ErrorScreen(message = weeklyWeatherUIState.message)
                 is WeeklyWeatherUIState.Error.Unknown -> ErrorScreen(message = weeklyWeatherUIState.message)
             }

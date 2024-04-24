@@ -51,12 +51,13 @@ class HomeViewModel(
                     DailyWeatherUIState.Success(data = dailyWeatherUIModel)
 
             }.onFailure{
-
-                mutableDailyWeatherUIState.value = errorMapper.mappingObjects(it as ErrorResponse)
+                mutableDailyWeatherUIState.value = it.convertError()
                 Timber.e(it, "ERROR IN HomeViewModel :  ${mutableDailyWeatherUIState.value}")
             }
         }
 
     }
+
+    private fun Throwable.convertError(): DailyWeatherUIState.Error = errorMapper.mappingObjects(this as ErrorResponse)
 
 }

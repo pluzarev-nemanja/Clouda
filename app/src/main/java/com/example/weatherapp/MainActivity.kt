@@ -68,7 +68,12 @@ class MainActivity : ComponentActivity() {
                             navController = rememberNavController(),
                             dailyWeatherUIState = dailyWeatherUIState,
                             airPollutionUIState = airPollutionUIState,
-                            weeklyWeatherUIState = weeklyWeatherUIState
+                            weeklyWeatherUIState = weeklyWeatherUIState,
+                            onRetryClick = {
+                                    homeViewModel.getCurrentWeather()
+                                    airPollutionViewModel.getPastAirPollution()
+                                    weeklyWeatherViewModel.getWeeklyWeather()
+                            }
                         )
 
 

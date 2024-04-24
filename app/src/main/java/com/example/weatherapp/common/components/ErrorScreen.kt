@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,7 +22,8 @@ import com.example.weatherapp.R
 
 @Composable
 fun ErrorScreen(
-    message: String?
+    message: String?,
+    onRetryClick : () -> Unit = {}
 ) {
     Box(
         modifier = Modifier
@@ -40,11 +42,15 @@ fun ErrorScreen(
                 modifier = Modifier.size(dimensionResource(id = R.dimen.LargeIconSize))
             )
 
-            Text(text = message ?: "Unknown error",
+            Text(text = message ?: stringResource(R.string.unknownError),
                 fontFamily = FontFamily.Serif,
                 fontSize = MaterialTheme.typography.titleLarge.fontSize,
                 fontWeight = FontWeight.SemiBold
                 )
+            Button(onClick = onRetryClick) {
+                Text(text = stringResource(R.string.refresh))
+
+            }
         }
     }
 }

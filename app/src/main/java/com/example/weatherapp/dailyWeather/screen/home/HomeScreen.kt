@@ -42,7 +42,8 @@ import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
 fun HomeScreen(
     dailyWeatherUIState: DailyWeatherUIState,
     paddingValues: PaddingValues,
-    onNavigate: () -> Unit
+    onNavigate: () -> Unit,
+    onRetryClick : () -> Unit
 ) {
 
 
@@ -57,8 +58,13 @@ fun HomeScreen(
 
         is DailyWeatherUIState.Error -> {
             when (dailyWeatherUIState) {
-                is DailyWeatherUIState.Error.Unknown -> ErrorScreen(message = dailyWeatherUIState.message)
-                is DailyWeatherUIState.Error.Internet -> ErrorScreen(message = dailyWeatherUIState.message)
+                is DailyWeatherUIState.Error.Unknown -> ErrorScreen(
+                    message = dailyWeatherUIState.message
+                )
+                is DailyWeatherUIState.Error.Internet -> ErrorScreen(
+                    message = dailyWeatherUIState.message,
+                    onRetryClick = onRetryClick
+                )
                 is DailyWeatherUIState.Error.Server -> ErrorScreen(message = dailyWeatherUIState.message)
             }
         }
