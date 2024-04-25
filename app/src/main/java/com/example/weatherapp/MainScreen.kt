@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.weatherapp.airPollution.uiState.AirPollutionUIState
@@ -81,7 +82,8 @@ fun MyAppBar() {
                 Text(
                     text = stringResource(id = R.string.app_name),
                     color = MaterialTheme.colorScheme.onBackground,
-                    fontSize = MaterialTheme.typography.headlineMedium.fontSize
+                    fontSize = MaterialTheme.typography.headlineMedium.fontSize,
+                    fontWeight = FontWeight.ExtraBold
                 )
                 AsyncImage(model = R.drawable.ic_launcher_foreground, contentDescription = "icon",
                     modifier = Modifier.size(dimensionResource(id = R.dimen.topBarIconSize)))
