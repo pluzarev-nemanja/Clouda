@@ -76,9 +76,7 @@ class AirPollutionViewModel(
         }
     }
 
-    private fun Throwable.convertError(): AirPollutionUIState.Error = runCatching {
-        errorMapper
-    }.mapCatching {
-        errorMapper.mappingObjects(this as ErrorResponse)
-    } .getOrThrow()
+    private fun Throwable.convertError(): AirPollutionUIState.Error = errorMapper.run {
+        errorMapper.mappingObjects(this@convertError)
+    }
 }

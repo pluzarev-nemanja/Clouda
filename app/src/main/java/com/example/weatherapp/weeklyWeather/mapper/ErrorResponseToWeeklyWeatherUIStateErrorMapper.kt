@@ -4,12 +4,12 @@ import com.example.domain.mapper.Mapper
 import com.example.domain.model.ErrorResponse
 import com.example.weatherapp.weeklyWeather.uiState.WeeklyWeatherUIState
 
-class ErrorResponseToWeeklyWeatherUIStateErrorMapper : Mapper<ErrorResponse, WeeklyWeatherUIState.Error> {
+class ErrorResponseToWeeklyWeatherUIStateErrorMapper : Mapper<Throwable, WeeklyWeatherUIState.Error> {
 
-    override fun mappingObjects(input: ErrorResponse): WeeklyWeatherUIState.Error =
+    override fun mappingObjects(input: Throwable): WeeklyWeatherUIState.Error =
         when (input) {
             is ErrorResponse.Network -> WeeklyWeatherUIState.Error.Internet(message = "Check your internet connection!")
             is ErrorResponse.Host -> WeeklyWeatherUIState.Error.Server(message = "Server not responding!")
-            is ErrorResponse.Unknown -> WeeklyWeatherUIState.Error.Unknown(message = "Unknown error occurred!")
+            else -> WeeklyWeatherUIState.Error.Unknown(message = "Unknown error occurred!")
         }
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.model.ErrorResponse
 import com.example.domain.model.WeeklyWeather
 import com.example.domain.useCases.UseCases
+import com.example.weatherapp.airPollution.uiState.AirPollutionUIState
 import com.example.weatherapp.common.location.LocationManager
 import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
 import com.example.weatherapp.weeklyWeather.mapper.ErrorResponseToWeeklyWeatherUIStateErrorMapper
@@ -58,10 +59,8 @@ class WeeklyWeatherViewModel(
         }
     }
 
-    private fun Throwable.convertError(): WeeklyWeatherUIState.Error = runCatching {
-        errorMapper
-    }.mapCatching {
-        errorMapper.mappingObjects(this as ErrorResponse)
-    } .getOrThrow()
+    private fun Throwable.convertError(): WeeklyWeatherUIState.Error = errorMapper.run {
+        errorMapper.mappingObjects(this@convertError)
+    }
 }
 

@@ -10,6 +10,7 @@ import com.example.weatherapp.dailyWeather.mapper.DailyWeatherToDailyWeatherUIMo
 import com.example.weatherapp.dailyWeather.mapper.ErrorResponseToDailyWeatherUIStateErrorMapper
 import com.example.weatherapp.dailyWeather.model.DailyWeatherUIModel
 import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
+import com.example.weatherapp.weeklyWeather.uiState.WeeklyWeatherUIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -58,10 +59,8 @@ class HomeViewModel(
 
     }
 
-    private fun Throwable.convertError(): DailyWeatherUIState.Error = runCatching {
-      errorMapper
-    }.mapCatching {
-        errorMapper.mappingObjects(this as ErrorResponse)
-    } .getOrThrow()
+    private fun Throwable.convertError(): DailyWeatherUIState.Error = errorMapper.run {
+        errorMapper.mappingObjects(this@convertError)
+    }
 
 }
