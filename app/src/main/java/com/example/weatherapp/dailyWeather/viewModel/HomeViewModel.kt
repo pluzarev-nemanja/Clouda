@@ -3,25 +3,22 @@ package com.example.weatherapp.dailyWeather.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.DailyWeather
-import com.example.domain.model.ErrorResponse
 import com.example.domain.useCases.UseCases
 import com.example.weatherapp.common.location.LocationManager
 import com.example.weatherapp.dailyWeather.mapper.DailyWeatherToDailyWeatherUIModelMapper
-import com.example.weatherapp.dailyWeather.mapper.ErrorResponseToDailyWeatherUIStateErrorMapper
+import com.example.weatherapp.dailyWeather.mapper.ThrowableToDailyWeatherUIStateErrorMapper
 import com.example.weatherapp.dailyWeather.model.DailyWeatherUIModel
 import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
-import com.example.weatherapp.weeklyWeather.uiState.WeeklyWeatherUIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import okhttp3.internal.wait
 import timber.log.Timber
 
 class HomeViewModel(
     private val useCases: UseCases,
     private val mapper: DailyWeatherToDailyWeatherUIModelMapper,
-    private val errorMapper: ErrorResponseToDailyWeatherUIStateErrorMapper,
+    private val errorMapper: ThrowableToDailyWeatherUIStateErrorMapper,
     private val locationManager: LocationManager
 ) : ViewModel() {
 

@@ -2,13 +2,10 @@ package com.example.weatherapp.weeklyWeather.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.model.ErrorResponse
 import com.example.domain.model.WeeklyWeather
 import com.example.domain.useCases.UseCases
-import com.example.weatherapp.airPollution.uiState.AirPollutionUIState
 import com.example.weatherapp.common.location.LocationManager
-import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
-import com.example.weatherapp.weeklyWeather.mapper.ErrorResponseToWeeklyWeatherUIStateErrorMapper
+import com.example.weatherapp.weeklyWeather.mapper.ThrowableToWeeklyWeatherUIStateErrorMapper
 import com.example.weatherapp.weeklyWeather.mapper.WeeklyWeatherToWeeklyWeatherUIModelMapper
 import com.example.weatherapp.weeklyWeather.model.WeeklyWeatherUIModel
 import com.example.weatherapp.weeklyWeather.uiState.WeeklyWeatherUIState
@@ -21,7 +18,7 @@ import timber.log.Timber
 class WeeklyWeatherViewModel(
     private val useCases: UseCases,
     private val mapper: WeeklyWeatherToWeeklyWeatherUIModelMapper,
-    private val errorMapper: ErrorResponseToWeeklyWeatherUIStateErrorMapper,
+    private val errorMapper: ThrowableToWeeklyWeatherUIStateErrorMapper,
     private val locationManager: LocationManager
 ) : ViewModel() {
 

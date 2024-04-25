@@ -1,14 +1,11 @@
 package com.example.weatherapp.di
 
-import com.example.weatherapp.airPollution.mapper.ErrorResponseToAirPollutionUIStateErrorMapper
+import com.example.weatherapp.airPollution.mapper.ThrowableToAirPollutionUIStateErrorMapper
 import com.example.weatherapp.airPollution.mapper.PastAirPollutionToAirPollutionUIModelMapper
-import com.example.weatherapp.common.location.LocationManager
-import com.example.weatherapp.common.location.LocationManagerImpl
 import com.example.weatherapp.dailyWeather.mapper.DailyWeatherToDailyWeatherUIModelMapper
-import com.example.weatherapp.dailyWeather.mapper.ErrorResponseToDailyWeatherUIStateErrorMapper
-import com.example.weatherapp.weeklyWeather.mapper.ErrorResponseToWeeklyWeatherUIStateErrorMapper
+import com.example.weatherapp.dailyWeather.mapper.ThrowableToDailyWeatherUIStateErrorMapper
+import com.example.weatherapp.weeklyWeather.mapper.ThrowableToWeeklyWeatherUIStateErrorMapper
 import com.example.weatherapp.weeklyWeather.mapper.WeeklyWeatherToWeeklyWeatherUIModelMapper
-import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val uiMapperModule = module {
@@ -16,8 +13,8 @@ val uiMapperModule = module {
     factory { DailyWeatherToDailyWeatherUIModelMapper() }
     factory { WeeklyWeatherToWeeklyWeatherUIModelMapper() }
     factory { PastAirPollutionToAirPollutionUIModelMapper() }
-    factory { ErrorResponseToDailyWeatherUIStateErrorMapper() }
-    factory { ErrorResponseToWeeklyWeatherUIStateErrorMapper() }
-    factory { ErrorResponseToAirPollutionUIStateErrorMapper() }
+    factory { ThrowableToDailyWeatherUIStateErrorMapper() }
+    factory { ThrowableToWeeklyWeatherUIStateErrorMapper() }
+    factory { ThrowableToAirPollutionUIStateErrorMapper() }
 
 }

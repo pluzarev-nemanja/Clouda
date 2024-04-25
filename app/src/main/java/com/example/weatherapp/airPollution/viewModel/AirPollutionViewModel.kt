@@ -4,15 +4,13 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.model.ErrorResponse
 import com.example.domain.model.PastAirPollution
 import com.example.domain.useCases.UseCases
-import com.example.weatherapp.airPollution.mapper.ErrorResponseToAirPollutionUIStateErrorMapper
+import com.example.weatherapp.airPollution.mapper.ThrowableToAirPollutionUIStateErrorMapper
 import com.example.weatherapp.airPollution.mapper.PastAirPollutionToAirPollutionUIModelMapper
 import com.example.weatherapp.airPollution.model.AirPollutionUIModel
 import com.example.weatherapp.airPollution.uiState.AirPollutionUIState
 import com.example.weatherapp.common.location.LocationManager
-import com.example.weatherapp.weeklyWeather.uiState.WeeklyWeatherUIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,7 +23,7 @@ import java.time.ZoneOffset
 class AirPollutionViewModel(
     private val useCases: UseCases,
     private val mapper: PastAirPollutionToAirPollutionUIModelMapper,
-    private val errorMapper: ErrorResponseToAirPollutionUIStateErrorMapper,
+    private val errorMapper: ThrowableToAirPollutionUIStateErrorMapper,
     private val locationManager: LocationManager
 ) : ViewModel() {
 

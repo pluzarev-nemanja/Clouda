@@ -4,7 +4,7 @@ import com.example.domain.mapper.Mapper
 import com.example.domain.model.ErrorResponse
 import com.example.weatherapp.airPollution.uiState.AirPollutionUIState
 
-class ErrorResponseToAirPollutionUIStateErrorMapper :
+class ThrowableToAirPollutionUIStateErrorMapper :
     Mapper<Throwable, AirPollutionUIState.Error> {
     override fun mappingObjects(input: Throwable): AirPollutionUIState.Error =
         when (input) {
