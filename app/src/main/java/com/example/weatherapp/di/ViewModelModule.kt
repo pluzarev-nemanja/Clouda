@@ -14,6 +14,7 @@ val viewModelModule = module {
         HomeViewModel(
             get(),
             get(),
+            get(),
             get()
         )
     }
@@ -21,11 +22,13 @@ val viewModelModule = module {
         AirPollutionViewModel(
             get(),
             get(),
+            get(),
             get()
         )
     }
     viewModel<WeeklyWeatherViewModel> {
         WeeklyWeatherViewModel(
+            get(),
             get(),
             get(),
             get()

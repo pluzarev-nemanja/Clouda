@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.weatherapp.R
+import com.example.weatherapp.common.components.ErrorScreen
 import com.example.weatherapp.common.components.LoadingScreen
 import com.example.weatherapp.dailyWeather.model.DailyWeatherUIModel
 import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
@@ -41,7 +42,8 @@ import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
 fun HomeScreen(
     dailyWeatherUIState: DailyWeatherUIState,
     paddingValues: PaddingValues,
-    onNavigate: () -> Unit
+    onNavigate: () -> Unit,
+    onRetryClick : () -> Unit
 ) {
 
 
@@ -55,7 +57,16 @@ fun HomeScreen(
         )
 
         is DailyWeatherUIState.Error -> {
-
+            when (dailyWeatherUIState) {
+                is DailyWeatherUIState.Error.Unknown -> ErrorScreen(
+                    message = dailyWeatherUIState.message
+                )
+                is DailyWeatherUIState.Error.Internet -> ErrorScreen(
+                    message = dailyWeatherUIState.message,
+                    onRetryClick = onRetryClick
+                )
+                is DailyWeatherUIState.Error.Server -> ErrorScreen(message = dailyWeatherUIState.message)
+            }
         }
 
         DailyWeatherUIState.Empty -> {
@@ -128,7 +139,7 @@ fun CurrentWeatherScreen(
                         dailyWeather.currentTemp
                     ),
                     fontWeight = FontWeight.Bold,
-                     fontSize = dimensionResource(id = R.dimen.extraLargeFontSize).value.sp
+                    fontSize = dimensionResource(id = R.dimen.extraLargeFontSize).value.sp
                 )
                 Text(
                     text = dailyWeather.location,
@@ -203,7 +214,7 @@ fun CurrentWeatherScreen(
 fun WeatherDetailsItem(
     @DrawableRes icon: Int,
     bigText: String,
-    smallText : String
+    smallText: String
 ) {
 
     Column(

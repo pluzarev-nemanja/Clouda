@@ -26,6 +26,7 @@ fun MainScreen(
     dailyWeatherUIState: DailyWeatherUIState,
     airPollutionUIState: AirPollutionUIState,
     weeklyWeatherUIState: WeeklyWeatherUIState,
+    onRetryClick : () -> Unit
 ) {
 
     var selectedIndex by rememberSaveable {
@@ -50,6 +51,7 @@ fun MainScreen(
             paddingValues = paddingValues,
             airPollutionUIState = airPollutionUIState,
             weeklyWeatherUIState = weeklyWeatherUIState,
+            onRetryClick = onRetryClick,
             onNavigate = {
                 navController.navigate(BottomNavItem.AirPollution.route)
                 selectedIndex = 2

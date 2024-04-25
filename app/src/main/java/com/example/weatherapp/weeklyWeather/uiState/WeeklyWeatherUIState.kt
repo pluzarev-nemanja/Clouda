@@ -11,5 +11,11 @@ sealed class WeeklyWeatherUIState {
 
     data class Success(val data: List<WeeklyWeatherUIModel>) : WeeklyWeatherUIState()
 
-    data class Error(val message: String?) : WeeklyWeatherUIState()
+    sealed class Error : WeeklyWeatherUIState() {
+        open val message: String? = null
+
+        data class Unknown(override val message: String?) : Error()
+        data class Internet(override val message: String?) : Error()
+        data class Server(override val message: String?) : Error()
+    }
 }

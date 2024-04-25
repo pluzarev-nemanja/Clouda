@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.model.WeeklyWeather
 import com.example.domain.useCases.UseCases
 import com.example.weatherapp.common.location.LocationManager
+import com.example.weatherapp.weeklyWeather.mapper.ThrowableToWeeklyWeatherUIStateErrorMapper
 import com.example.weatherapp.weeklyWeather.mapper.WeeklyWeatherToWeeklyWeatherUIModelMapper
 import com.example.weatherapp.weeklyWeather.model.WeeklyWeatherUIModel
 import com.example.weatherapp.weeklyWeather.uiState.WeeklyWeatherUIState
@@ -17,6 +18,7 @@ import timber.log.Timber
 class WeeklyWeatherViewModel(
     private val useCases: UseCases,
     private val mapper: WeeklyWeatherToWeeklyWeatherUIModelMapper,
+    private val errorMapper: ThrowableToWeeklyWeatherUIStateErrorMapper,
     private val locationManager: LocationManager
 ) : ViewModel() {
 
@@ -46,11 +48,16 @@ class WeeklyWeatherViewModel(
                     WeeklyWeatherUIState.Success(data = weeklyWeatherUIModelList)
 
             }.onFailure {
-                Timber.e(it, "Something went wrong!")
-                mutableWeeklyWeatherUIState.value = WeeklyWeatherUIState.Error("Error occurred")
-            }.getOrThrow()
+                mutableWeeklyWeatherUIState.value = it.convertError()
+                Timber.e(it, "ERROR IN WeeklyWeather :  ${mutableWeeklyWeatherUIState.value}")
+
+            }
 
         }
+    }
+
+    private fun Throwable.convertError(): WeeklyWeatherUIState.Error = errorMapper.run {
+        errorMapper.mappingObjects(this@convertError)
     }
 }
 

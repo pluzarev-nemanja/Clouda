@@ -21,6 +21,7 @@ fun NavigationGraph(
     paddingValues: PaddingValues,
     airPollutionUIState: AirPollutionUIState,
     weeklyWeatherUIState: WeeklyWeatherUIState,
+    onRetryClick : () -> Unit,
     onNavigate: () -> Unit,
 ) {
 
@@ -31,20 +32,23 @@ fun NavigationGraph(
             HomeScreen(
                 dailyWeatherUIState = dailyWeatherUIState,
                 paddingValues = paddingValues,
-                onNavigate = onNavigate
+                onNavigate = onNavigate,
+                onRetryClick = onRetryClick
             )
         }
 
         composable(BottomNavItem.WeeklyWeather.route) {
             WeeklyWeatherScreen(
                 paddingValues = paddingValues,
-                weeklyWeatherUIState = weeklyWeatherUIState
+                weeklyWeatherUIState = weeklyWeatherUIState,
+                onRetryClick = onRetryClick
             )
         }
         composable(BottomNavItem.AirPollution.route) {
             AirPollutionScreen(
                 paddingValues = paddingValues,
                 airPollutionUIState = airPollutionUIState,
+                onRetryClick = onRetryClick
             )
         }
 

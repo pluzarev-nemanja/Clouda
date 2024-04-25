@@ -34,12 +34,14 @@ import coil.compose.AsyncImage
 import com.example.weatherapp.R
 import com.example.weatherapp.airPollution.model.AirPollutionUIModel
 import com.example.weatherapp.airPollution.uiState.AirPollutionUIState
+import com.example.weatherapp.common.components.ErrorScreen
 import com.example.weatherapp.common.components.LoadingScreen
 
 @Composable
 fun AirPollutionScreen(
     paddingValues: PaddingValues,
     airPollutionUIState: AirPollutionUIState,
+    onRetryClick : () -> Unit
 ) {
 
 
@@ -47,7 +49,16 @@ fun AirPollutionScreen(
 
         AirPollutionUIState.Loading -> LoadingScreen()
         AirPollutionUIState.Empty -> {}
-        is AirPollutionUIState.Error -> {}
+        is AirPollutionUIState.Error -> {
+            when(airPollutionUIState){
+                is AirPollutionUIState.Error.Internet -> ErrorScreen(
+                    message = airPollutionUIState.message,
+                    onRetryClick = onRetryClick
+                )
+                is AirPollutionUIState.Error.Server -> ErrorScreen(message = airPollutionUIState.message)
+                is AirPollutionUIState.Error.Unknown -> ErrorScreen(message = airPollutionUIState.message)
+            }
+        }
         is AirPollutionUIState.Success -> PastAirPollutionScreen(
             airPollutionList = airPollutionUIState.data,
             paddingValues = paddingValues,

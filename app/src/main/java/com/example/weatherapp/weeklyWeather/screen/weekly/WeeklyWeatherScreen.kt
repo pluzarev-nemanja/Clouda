@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import coil.compose.AsyncImage
 import com.example.domain.model.WeeklyWeather
 import com.example.weatherapp.R
+import com.example.weatherapp.common.components.ErrorScreen
 import com.example.weatherapp.common.components.LoadingScreen
 import com.example.weatherapp.weeklyWeather.model.WeeklyWeatherUIModel
 import com.example.weatherapp.weeklyWeather.uiState.WeeklyWeatherUIState
@@ -34,7 +35,8 @@ import com.example.weatherapp.weeklyWeather.uiState.WeeklyWeatherUIState
 @Composable
 fun WeeklyWeatherScreen(
     paddingValues: PaddingValues,
-    weeklyWeatherUIState: WeeklyWeatherUIState
+    weeklyWeatherUIState: WeeklyWeatherUIState,
+    onRetryClick : () -> Unit
 ) {
 
     when (weeklyWeatherUIState) {
@@ -48,7 +50,16 @@ fun WeeklyWeatherScreen(
             weeklyWeather = weeklyWeatherUIState.data
         )
 
-        is WeeklyWeatherUIState.Error -> {}
+        is WeeklyWeatherUIState.Error -> {
+            when(weeklyWeatherUIState){
+                is WeeklyWeatherUIState.Error.Internet -> ErrorScreen(
+                    message = weeklyWeatherUIState.message,
+                    onRetryClick = onRetryClick
+                )
+                is WeeklyWeatherUIState.Error.Server -> ErrorScreen(message = weeklyWeatherUIState.message)
+                is WeeklyWeatherUIState.Error.Unknown -> ErrorScreen(message = weeklyWeatherUIState.message)
+            }
+        }
 
     }
 }
