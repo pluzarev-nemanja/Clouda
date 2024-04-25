@@ -24,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
@@ -110,6 +111,7 @@ fun CurrentWeatherScreen(
                 modifier = Modifier
                     .size(dimensionResource(id = R.dimen.LargeIconSize))
                     .weight(1f)
+                    .shadow(elevation = 80.dp)
             )
             Text(
                 text = dailyWeather.currentTime,
