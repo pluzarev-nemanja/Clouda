@@ -71,8 +71,8 @@ fun BottomNavigationBar(
 
         navigationBarItems.forEachIndexed { index, item ->
 
-                color  = if (selectedIndex == index) Color.Cyan
-                else  Color.LightGray
+                color  = if (selectedIndex == index) MaterialTheme.colorScheme.inversePrimary
+                else  MaterialTheme.colorScheme.onPrimary
 
             Box(
                 modifier = Modifier

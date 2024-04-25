@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -89,14 +90,6 @@ fun CurrentWeatherScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    listOf(
-                        Color.LightGray,
-                        MaterialTheme.colorScheme.primaryContainer
-                    )
-                )
-            )
             .padding(
                 top = paddingValues.calculateTopPadding(),
                 bottom = paddingValues.calculateBottomPadding()
@@ -149,57 +142,64 @@ fun CurrentWeatherScreen(
             }
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.extraLargePadding)))
 
-            Row(
+            Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                WeatherDetailsItem(
-                    icon = R.drawable.ic_sun,
-                    bigText = stringResource(
-                        R.string.feelsLike
-                    ),
-                    smallText = stringResource(id = R.string.celsius, dailyWeather.feelsLikeTemp)
-                )
-                Divider(
-                    color = MaterialTheme.colorScheme.inversePrimary, modifier = Modifier
-                        .height(
-                            dimensionResource(id = R.dimen.largeHeight)
-                        )
-                        .width(1.dp)
-                )
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_pollution),
-                        contentDescription = stringResource(R.string.airPollution),
 
-                        modifier = Modifier.size(dimensionResource(id = R.dimen.iconSize))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    WeatherDetailsItem(
+                        icon = R.drawable.ic_sun,
+                        bigText = stringResource(
+                            R.string.feelsLike
+                        ),
+                        smallText = stringResource(id = R.string.celsius, dailyWeather.feelsLikeTemp)
                     )
-                    Button(
-                        onClick = {
-                            onNavigate.invoke()
-                        },
-                        modifier = Modifier.padding(dimensionResource(id = R.dimen.smallPadding))
+                    Divider(
+                        color = MaterialTheme.colorScheme.primary, modifier = Modifier
+                            .height(
+                                dimensionResource(id = R.dimen.largeHeight)
+                            )
+                            .width(1.dp)
+                    )
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = stringResource(R.string.checkAirPollution))
-                    }
-                }
-                Divider(
-                    color = MaterialTheme.colorScheme.inversePrimary, modifier = Modifier
-                        .height(
-                            dimensionResource(id = R.dimen.largeHeight)
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_pollution),
+                            contentDescription = stringResource(R.string.airPollution),
+
+                            modifier = Modifier.size(dimensionResource(id = R.dimen.iconSize))
                         )
-                        .width(1.dp)
-                )
-                WeatherDetailsItem(
-                    icon = R.drawable.ic_wind,
-                    bigText = dailyWeather.detailDescription,
-                    smallText = ""
-                )
+                        Button(
+                            onClick = {
+                                onNavigate.invoke()
+                            },
+                            modifier = Modifier.padding(dimensionResource(id = R.dimen.smallPadding))
+                        ) {
+                            Text(text = stringResource(R.string.checkAirPollution))
+                        }
+                    }
+                    Divider(
+                        color = MaterialTheme.colorScheme.primary, modifier = Modifier
+                            .height(
+                                dimensionResource(id = R.dimen.largeHeight)
+                            )
+                            .width(1.dp)
+                    )
+                    WeatherDetailsItem(
+                        icon = R.drawable.ic_wind,
+                        bigText = dailyWeather.detailDescription,
+                        smallText = ""
+                    )
+                }
             }
 
 
