@@ -14,6 +14,9 @@ class MainViewModel(
     private var mutableIsInDarkTheme: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isInDarkTheme: StateFlow<Boolean> = mutableIsInDarkTheme.asStateFlow()
 
+    private var mutableSelectedIndex: MutableStateFlow<Int> = MutableStateFlow(0)
+    val selectedIndex : StateFlow<Int> = mutableSelectedIndex.asStateFlow()
+
     init {
         mutableIsInDarkTheme.value = preferencesManager.getData(DARK_MODE_PREF,false)
     }
@@ -21,6 +24,10 @@ class MainViewModel(
     fun saveTheme(key: String, value: Boolean) {
         preferencesManager.saveData(key = key, value = value)
         mutableIsInDarkTheme.value = value
+    }
+
+    fun updateSelectedIndex(newIndex: Int){
+        mutableSelectedIndex.value = newIndex
     }
 
 }

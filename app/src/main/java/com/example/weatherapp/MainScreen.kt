@@ -10,15 +10,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.weatherapp.airPollution.uiState.AirPollutionUIState
@@ -27,6 +24,7 @@ import com.example.weatherapp.common.navigation.graph.NavigationGraph
 import com.example.weatherapp.common.navigation.routes.BottomNavItem
 import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
 import com.example.weatherapp.weeklyWeather.uiState.WeeklyWeatherUIState
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MainScreen(
@@ -36,12 +34,11 @@ fun MainScreen(
     weeklyWeatherUIState: WeeklyWeatherUIState,
     isInDarkTheme: Boolean,
     onDarkThemeSwitch: () -> Unit,
-    onRetryClick: () -> Unit
+    onRetryClick: () -> Unit,
+    mainViewModel: MainViewModel = koinViewModel()
 ) {
 
-    var selectedIndex by rememberSaveable {
-        mutableIntStateOf(0)
-    }
+    val selectedIndex = mainViewModel.selectedIndex.collectAsStateWithLifecycle().value
 
     Scaffold(
         topBar = {
@@ -50,7 +47,10 @@ fun MainScreen(
         bottomBar = {
             BottomNavigationBar(
                 navController = navController,
-                index = selectedIndex
+                index = selectedIndex,
+                updateSelectedIndex = { index: Int ->
+                    mainViewModel.updateSelectedIndex(index)
+                }
             )
         }
     ) { paddingValues ->
@@ -66,7 +66,7 @@ fun MainScreen(
             onDarkThemeSwitch = onDarkThemeSwitch,
             onNavigate = {
                 navController.navigate(BottomNavItem.AirPollution.route)
-                selectedIndex = 2
+                mainViewModel.updateSelectedIndex(newIndex = 2)
             }
         )
     }
