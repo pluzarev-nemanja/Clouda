@@ -21,6 +21,8 @@ fun NavigationGraph(
     paddingValues: PaddingValues,
     airPollutionUIState: AirPollutionUIState,
     weeklyWeatherUIState: WeeklyWeatherUIState,
+    isInDarkTheme : Boolean,
+    onDarkThemeSwitch: () -> Unit,
     onRetryClick : () -> Unit,
     onNavigate: () -> Unit,
 ) {
@@ -33,7 +35,9 @@ fun NavigationGraph(
                 dailyWeatherUIState = dailyWeatherUIState,
                 paddingValues = paddingValues,
                 onNavigate = onNavigate,
-                onRetryClick = onRetryClick
+                onRetryClick = onRetryClick,
+                isInDarkTheme = isInDarkTheme,
+                onThemeSwitch = onDarkThemeSwitch
             )
         }
 

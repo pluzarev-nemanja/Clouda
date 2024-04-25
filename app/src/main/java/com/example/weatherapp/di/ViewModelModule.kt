@@ -2,6 +2,7 @@ package com.example.weatherapp.di
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.example.weatherapp.MainViewModel
 import com.example.weatherapp.airPollution.viewModel.AirPollutionViewModel
 import com.example.weatherapp.dailyWeather.viewModel.HomeViewModel
 import com.example.weatherapp.weeklyWeather.viewModel.WeeklyWeatherViewModel
@@ -31,6 +32,11 @@ val viewModelModule = module {
             get(),
             get(),
             get(),
+            get()
+        )
+    }
+    viewModel<MainViewModel> {
+        MainViewModel(
             get()
         )
     }

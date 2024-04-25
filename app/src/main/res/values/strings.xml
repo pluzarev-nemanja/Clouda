@@ -32,4 +32,6 @@
     <string name="errorIcon">error icon</string>
     <string name="unknownError">Unknown error</string>
     <string name="refresh">Refresh</string>
+    <string name="themeIcon">theme icon</string>
+    <string name="rotationAngle">rotation angle</string>
 </resources>

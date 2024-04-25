@@ -2,7 +2,6 @@ package com.example.weatherapp
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -35,7 +34,9 @@ fun MainScreen(
     dailyWeatherUIState: DailyWeatherUIState,
     airPollutionUIState: AirPollutionUIState,
     weeklyWeatherUIState: WeeklyWeatherUIState,
-    onRetryClick : () -> Unit
+    isInDarkTheme: Boolean,
+    onDarkThemeSwitch: () -> Unit,
+    onRetryClick: () -> Unit
 ) {
 
     var selectedIndex by rememberSaveable {
@@ -61,6 +62,8 @@ fun MainScreen(
             airPollutionUIState = airPollutionUIState,
             weeklyWeatherUIState = weeklyWeatherUIState,
             onRetryClick = onRetryClick,
+            isInDarkTheme = isInDarkTheme,
+            onDarkThemeSwitch = onDarkThemeSwitch,
             onNavigate = {
                 navController.navigate(BottomNavItem.AirPollution.route)
                 selectedIndex = 2
@@ -85,8 +88,10 @@ fun MyAppBar() {
                     fontSize = MaterialTheme.typography.headlineMedium.fontSize,
                     fontWeight = FontWeight.ExtraBold
                 )
-                AsyncImage(model = R.drawable.ic_launcher_foreground, contentDescription = "icon",
-                    modifier = Modifier.size(dimensionResource(id = R.dimen.topBarIconSize)))
+                AsyncImage(
+                    model = R.drawable.ic_launcher_foreground, contentDescription = "icon",
+                    modifier = Modifier.size(dimensionResource(id = R.dimen.topBarIconSize))
+                )
             }
         },
         colors = TopAppBarDefaults.mediumTopAppBarColors(MaterialTheme.colorScheme.primary)
