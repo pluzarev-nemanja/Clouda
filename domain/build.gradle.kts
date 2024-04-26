@@ -68,4 +68,7 @@ dependencies {
 
     implementation (libs.koin.androidx.compose)
 
+    testImplementation(libs.mockk)
+
+
 }
