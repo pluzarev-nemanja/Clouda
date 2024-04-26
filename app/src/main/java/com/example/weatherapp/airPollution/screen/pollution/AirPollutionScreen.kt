@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -151,7 +152,7 @@ fun AirPollutionItem(
 ) {
 
 
-    Card {
+    Card{
 
         Column(
             modifier = Modifier
@@ -215,17 +216,25 @@ fun PollutionDataItem(
                 )
                 .size(dimensionResource(id = R.dimen.extraLargePadding))
                 .clip(RoundedCornerShape(dimensionResource(id = R.dimen.iconSize)))
-                .background(MaterialTheme.colorScheme.inversePrimary),
+                .background(
+                    brush = Brush.verticalGradient(
+                        listOf(
+                            MaterialTheme.colorScheme.primary,
+                            MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    )
+                ),
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = bigText,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onBackground
             )
             Text(
                 text = data,
-                color = MaterialTheme.colorScheme.onBackground.copy(0.5f)
+                color = MaterialTheme.colorScheme.onBackground
             )
         }
 

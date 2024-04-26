@@ -40,7 +40,8 @@ import timber.log.Timber
 @Composable
 fun BottomNavigationBar(
     navController: NavHostController,
-    index: Int
+    index: Int,
+    updateSelectedIndex: (Int) -> Unit
 ) {
     val navigationBarItems = listOf(
         BottomNavItem.Home,
@@ -49,9 +50,6 @@ fun BottomNavigationBar(
         BottomNavItem.About
     )
 
-    var selectedIndex by rememberSaveable {
-        mutableIntStateOf(index)
-    }
     var firstPressed by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
@@ -69,10 +67,10 @@ fun BottomNavigationBar(
         containerColor = MaterialTheme.colorScheme.primary
     ) {
 
-        navigationBarItems.forEachIndexed { index, item ->
+        navigationBarItems.forEachIndexed { position, item ->
 
-                color  = if (selectedIndex == index) Color.Cyan
-                else  Color.LightGray
+                color  = if (index == position) MaterialTheme.colorScheme.inversePrimary
+                else  MaterialTheme.colorScheme.onPrimary
 
             Box(
                 modifier = Modifier
@@ -82,7 +80,7 @@ fun BottomNavigationBar(
                         interactionSource = MutableInteractionSource(),
                         indication = null
                     ) {
-                        selectedIndex = index
+                        updateSelectedIndex.invoke(position)
                         navController.navigate(item.route) {
                             popUpTo(navController.graph.findStartDestination().id) {
                                 saveState = true
@@ -108,9 +106,10 @@ fun BottomNavigationBar(
                     val activity = (context as? Activity)
                     activity?.finish()
                 } else {
-                    selectedIndex = 0
+                    updateSelectedIndex.invoke(0)
                     firstPressed = true
                 }
+
             }
         }
 

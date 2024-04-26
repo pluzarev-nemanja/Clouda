@@ -5,6 +5,7 @@
         <dimen name="mediumPadding">16dp</dimen>
         <dimen name="largePadding">28dp</dimen>
         <dimen name="extraLargePadding">68dp</dimen>
+        <dimen name="topBarIconSize">80dp</dimen>
         <dimen name="smallPadding">8dp</dimen>
         <dimen name="largeHeight">64dp</dimen>
         <dimen name="mediumHeight">40dp</dimen>

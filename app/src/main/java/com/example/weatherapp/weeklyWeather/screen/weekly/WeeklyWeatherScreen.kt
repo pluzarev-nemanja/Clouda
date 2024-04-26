@@ -163,7 +163,7 @@ fun WeeklyItem(
                 brush = Brush.verticalGradient(
                     listOf(
                         MaterialTheme.colorScheme.primary,
-                        MaterialTheme.colorScheme.inversePrimary
+                        MaterialTheme.colorScheme.onPrimaryContainer
                     )
                 )
             )

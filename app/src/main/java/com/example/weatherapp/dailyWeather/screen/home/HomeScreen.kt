@@ -2,7 +2,6 @@ package com.example.weatherapp.dailyWeather.screen.home
 
 import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -23,8 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -35,6 +34,7 @@ import coil.compose.AsyncImage
 import com.example.weatherapp.R
 import com.example.weatherapp.common.components.ErrorScreen
 import com.example.weatherapp.common.components.LoadingScreen
+import com.example.weatherapp.common.components.ThemeSwitcher
 import com.example.weatherapp.dailyWeather.model.DailyWeatherUIModel
 import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
 
@@ -42,8 +42,10 @@ import com.example.weatherapp.dailyWeather.uiState.DailyWeatherUIState
 fun HomeScreen(
     dailyWeatherUIState: DailyWeatherUIState,
     paddingValues: PaddingValues,
+    isInDarkTheme: Boolean,
+    onThemeSwitch: () -> Unit,
     onNavigate: () -> Unit,
-    onRetryClick : () -> Unit
+    onRetryClick: () -> Unit
 ) {
 
 
@@ -53,6 +55,8 @@ fun HomeScreen(
         is DailyWeatherUIState.Success -> CurrentWeatherScreen(
             dailyWeather = dailyWeatherUIState.data,
             paddingValues = paddingValues,
+            isInDarkTheme = isInDarkTheme,
+            onThemeSwitch = onThemeSwitch,
             onNavigate = onNavigate
         )
 
@@ -61,10 +65,12 @@ fun HomeScreen(
                 is DailyWeatherUIState.Error.Unknown -> ErrorScreen(
                     message = dailyWeatherUIState.message
                 )
+
                 is DailyWeatherUIState.Error.Internet -> ErrorScreen(
                     message = dailyWeatherUIState.message,
                     onRetryClick = onRetryClick
                 )
+
                 is DailyWeatherUIState.Error.Server -> ErrorScreen(message = dailyWeatherUIState.message)
             }
         }
@@ -83,20 +89,14 @@ fun CurrentWeatherScreen(
     dailyWeather: DailyWeatherUIModel,
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues,
-    onNavigate: () -> Unit
+    isInDarkTheme: Boolean,
+    onNavigate: () -> Unit,
+    onThemeSwitch: () -> Unit
 ) {
 
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    listOf(
-                        Color.LightGray,
-                        MaterialTheme.colorScheme.primaryContainer
-                    )
-                )
-            )
             .padding(
                 top = paddingValues.calculateTopPadding(),
                 bottom = paddingValues.calculateBottomPadding()
@@ -111,12 +111,22 @@ fun CurrentWeatherScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(0.5f),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                ThemeSwitcher(onThemeSwitch = onThemeSwitch, isInDarkTheme = isInDarkTheme)
+            }
             AsyncImage(
                 model = dailyWeather.icon,
                 contentDescription = dailyWeather.detailDescription,
                 modifier = Modifier
                     .size(dimensionResource(id = R.dimen.LargeIconSize))
                     .weight(1f)
+                    .shadow(elevation = 80.dp)
             )
             Text(
                 text = dailyWeather.currentTime,
@@ -149,57 +159,67 @@ fun CurrentWeatherScreen(
             }
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.extraLargePadding)))
 
-            Row(
+            Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                WeatherDetailsItem(
-                    icon = R.drawable.ic_sun,
-                    bigText = stringResource(
-                        R.string.feelsLike
-                    ),
-                    smallText = stringResource(id = R.string.celsius, dailyWeather.feelsLikeTemp)
-                )
-                Divider(
-                    color = MaterialTheme.colorScheme.inversePrimary, modifier = Modifier
-                        .height(
-                            dimensionResource(id = R.dimen.largeHeight)
-                        )
-                        .width(1.dp)
-                )
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_pollution),
-                        contentDescription = stringResource(R.string.airPollution),
 
-                        modifier = Modifier.size(dimensionResource(id = R.dimen.iconSize))
-                    )
-                    Button(
-                        onClick = {
-                            onNavigate.invoke()
-                        },
-                        modifier = Modifier.padding(dimensionResource(id = R.dimen.smallPadding))
-                    ) {
-                        Text(text = stringResource(R.string.checkAirPollution))
-                    }
-                }
-                Divider(
-                    color = MaterialTheme.colorScheme.inversePrimary, modifier = Modifier
-                        .height(
-                            dimensionResource(id = R.dimen.largeHeight)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    WeatherDetailsItem(
+                        icon = R.drawable.ic_sun,
+                        bigText = stringResource(
+                            R.string.feelsLike
+                        ),
+                        smallText = stringResource(
+                            id = R.string.celsius,
+                            dailyWeather.feelsLikeTemp
                         )
-                        .width(1.dp)
-                )
-                WeatherDetailsItem(
-                    icon = R.drawable.ic_wind,
-                    bigText = dailyWeather.detailDescription,
-                    smallText = ""
-                )
+                    )
+                    Divider(
+                        color = MaterialTheme.colorScheme.primary, modifier = Modifier
+                            .height(
+                                dimensionResource(id = R.dimen.largeHeight)
+                            )
+                            .width(1.dp)
+                    )
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_pollution),
+                            contentDescription = stringResource(R.string.airPollution),
+
+                            modifier = Modifier.size(dimensionResource(id = R.dimen.iconSize))
+                        )
+                        Button(
+                            onClick = {
+                                onNavigate.invoke()
+                            },
+                            modifier = Modifier.padding(dimensionResource(id = R.dimen.smallPadding))
+                        ) {
+                            Text(text = stringResource(R.string.checkAirPollution))
+                        }
+                    }
+                    Divider(
+                        color = MaterialTheme.colorScheme.primary, modifier = Modifier
+                            .height(
+                                dimensionResource(id = R.dimen.largeHeight)
+                            )
+                            .width(1.dp)
+                    )
+                    WeatherDetailsItem(
+                        icon = R.drawable.ic_wind,
+                        bigText = dailyWeather.detailDescription,
+                        smallText = ""
+                    )
+                }
             }
 
 

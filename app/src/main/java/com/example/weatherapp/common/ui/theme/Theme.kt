@@ -16,32 +16,59 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = DarkGrey40,
+    onPrimary = white,
+    primaryContainer = DarkGrey70,
+    onPrimaryContainer = DarkGrey10,
+    inversePrimary = DarkGrey70,
+    secondary = DarkGrey60,
+    onSecondary = white,
+    secondaryContainer = Grey90,
+    onSecondaryContainer = Grey10,
+    error = Red40,
+    onError = white,
+    errorContainer = Red90,
+    onErrorContainer = Red10,
+    background = DarkGrey30,
+    onBackground = Grey80,
+    surface = DarkGrey70,
+    onSurface = DarkGrey30,
+    inverseSurface = Grey20,
+    inverseOnSurface = Grey90,
+    surfaceVariant = DarkGrey70,
+    onSurfaceVariant = DarkGrey30,
+    outline = DarkGrey40
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = yellow40,
+    onPrimary = white,
+    primaryContainer = yellow90,
+    onPrimaryContainer = yellow80,
+    inversePrimary = yellow80,
+    secondary = DarkYellow40,
+    onSecondary = white,
+    secondaryContainer = DarkYellow90,
+    onSecondaryContainer = DarkYellow10,
+    error = Red40,
+    onError = white,
+    errorContainer = Red90,
+    onErrorContainer = Red10,
+    background = YellowGrey80,
+    onBackground = yellow20,
+    surface = YellowGrey90,
+    onSurface = YellowGrey30,
+    inverseSurface = Grey20,
+    inverseOnSurface = Grey90,
+    surfaceVariant = YellowGrey90,
+    onSurfaceVariant = YellowGrey30,
+    outline = YellowGrey50
 )
-
 @Composable
 fun WeatherAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

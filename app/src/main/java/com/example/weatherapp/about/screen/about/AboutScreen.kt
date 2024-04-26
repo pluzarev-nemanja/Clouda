@@ -45,22 +45,25 @@ fun AboutScreen(
             verticalArrangement = Arrangement.SpaceAround,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Column(
+                modifier = Modifier.fillMaxWidth()
+                    .weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = stringResource(R.string.name),
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Serif,
+                    fontSize = MaterialTheme.typography.headlineMedium.fontSize
+                )
+                Text(
+                    text = stringResource(R.string.createdBy),
+                    fontWeight = FontWeight.Light,
+                    fontFamily = FontFamily.Serif,
+                    fontSize = MaterialTheme.typography.headlineSmall.fontSize
 
-            Text(
-                modifier = Modifier.weight(1f),
-                text = stringResource(R.string.createdBy),
-                fontWeight = FontWeight.Light,
-                fontFamily = FontFamily.Serif,
-                fontSize = MaterialTheme.typography.headlineSmall.fontSize
-
-            )
-            Text(
-                modifier = Modifier.weight(1f),
-                text = stringResource(R.string.name),
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Serif,
-                fontSize = MaterialTheme.typography.headlineMedium.fontSize
-            )
+                )
+            }
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
