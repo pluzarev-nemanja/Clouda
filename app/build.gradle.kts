@@ -80,6 +80,8 @@ dependencies {
 
     implementation (libs.androidx.core.splashscreen)
 
+    testImplementation(libs.mockk)
+
 
 
     implementation(project(":domain"))
