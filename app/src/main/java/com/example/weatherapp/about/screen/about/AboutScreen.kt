@@ -47,7 +47,7 @@ fun AboutScreen(
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth()
-                    .weight(1f),
+                    .weight(2f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(

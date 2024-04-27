@@ -27,7 +27,7 @@ class LocationManagerImpl(private val context: Context) : LocationManager {
             fusedLocationProvider = LocationServices.getFusedLocationProviderClient(context)
 
             fusedLocationProvider.getCurrentLocation(
-                Priority.PRIORITY_BALANCED_POWER_ACCURACY,
+                Priority.PRIORITY_HIGH_ACCURACY,
                 cancellationTokenSource.token
             ).addOnSuccessListener { location: Location? ->
                 Timber.d("LocationManager : ${location?.longitude} ${location?.longitude}")

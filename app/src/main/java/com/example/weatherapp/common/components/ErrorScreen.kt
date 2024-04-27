@@ -45,7 +45,7 @@ fun ErrorScreen(
 
             Text(text = message ?: stringResource(R.string.unknownError),
                 fontFamily = FontFamily.Serif,
-                fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                fontSize = MaterialTheme.typography.titleSmall.fontSize,
                 fontWeight = FontWeight.SemiBold
                 )
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.mediumPadding)))
